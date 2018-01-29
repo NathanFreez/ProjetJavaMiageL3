@@ -13,20 +13,20 @@ import java.util.HashMap;
  * @author nathan
  */
 public class Mission {
+    
     private int id;
-    private String type;
+    private Mission type;
     private Date dateD;
     private int duree;
     private HashMap<Competence,Integer> mapC;
     private int nbTotalEmp;
     private HashMap<Competence,Employe[]> mapE;
 
-    public Mission(int id, String type, Date dateD, int duree) {
+    public Mission(int id, Mission type, Date dateD, int duree) {
         this.id = id;
         this.type = type;
         this.dateD = dateD;
         this.duree = duree;
     }
-    
-    
+       
 }
