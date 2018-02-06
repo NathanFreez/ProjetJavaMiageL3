@@ -8,6 +8,7 @@ package projetmiagel3;
 import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -19,7 +20,6 @@ public class Accueil extends javax.swing.JFrame {
      * Creates new form Accueil
      */
     public Accueil() throws FileNotFoundException {
-        Entreprise test = new Entreprise();
         initComponents();
     }
 
@@ -34,86 +34,172 @@ public class Accueil extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
-        jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        PanelAffichage = new javax.swing.JPanel();
+        ListeXXX = new javax.swing.JLabel();
+        Retour = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        PanelAccueil = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        AffEmploye = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        AffComp = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        AffMission = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        jLabel1.setText("Bonjour");
+        jLabel1.setText("Gestion de l'entreprise");
 
-        jList2.setVisible(false);
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(jList2);
+        PanelAffichage.setVisible(false);
 
-        jButton1.setText("Liste Employé");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        ListeXXX.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        ListeXXX.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ListeXXX.setText("Liste des ?????");
+
+        Retour.setText("Retour");
+        Retour.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                RetourMouseClicked(evt);
             }
         });
-
-        jButton2.setText("Liste Competence");
-        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton2MouseClicked(evt);
-            }
-        });
-
-        jButton3.setText("Liste Mission");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        Retour.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                RetourActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(60, 60, 60)
-                .addComponent(jButton2)
-                .addGap(62, 62, 62)
-                .addComponent(jButton3)
-                .addGap(69, 69, 69))
+        jTable2.setVisible(false);
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [50][4],
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(jTable2);
+
+        javax.swing.GroupLayout PanelAffichageLayout = new javax.swing.GroupLayout(PanelAffichage);
+        PanelAffichage.setLayout(PanelAffichageLayout);
+        PanelAffichageLayout.setHorizontalGroup(
+            PanelAffichageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(ListeXXX, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(PanelAffichageLayout.createSequentialGroup()
+                .addContainerGap(550, Short.MAX_VALUE)
+                .addComponent(Retour)
+                .addContainerGap())
+            .addGroup(PanelAffichageLayout.createSequentialGroup()
+                .addGap(85, 85, 85)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(jButton2)
-                .addComponent(jButton3)
-                .addComponent(jButton1))
+        PanelAffichageLayout.setVerticalGroup(
+            PanelAffichageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelAffichageLayout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addComponent(Retour)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(ListeXXX)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(219, Short.MAX_VALUE))
+        );
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Afficher la liste des Employés");
+
+        AffEmploye.setText("Liste Employé");
+        AffEmploye.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                AffEmployeMouseClicked(evt);
+            }
+        });
+        AffEmploye.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AffEmployeActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Afficher la liste des Missions");
+
+        AffComp.setText("Liste Competence");
+        AffComp.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                AffCompMouseClicked(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Afficher la liste des Compétences");
+
+        AffMission.setText("Liste Mission");
+        AffMission.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                AffMissionMouseClicked(evt);
+            }
+        });
+        AffMission.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AffMissionActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout PanelAccueilLayout = new javax.swing.GroupLayout(PanelAccueil);
+        PanelAccueil.setLayout(PanelAccueilLayout);
+        PanelAccueilLayout.setHorizontalGroup(
+            PanelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(PanelAccueilLayout.createSequentialGroup()
+                .addGroup(PanelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelAccueilLayout.createSequentialGroup()
+                        .addGap(196, 196, 196)
+                        .addGroup(PanelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(AffEmploye, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(PanelAccueilLayout.createSequentialGroup()
+                                .addGap(5, 5, 5)
+                                .addComponent(AffMission, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(PanelAccueilLayout.createSequentialGroup()
+                        .addGap(181, 181, 181)
+                        .addComponent(AffComp, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        PanelAccueilLayout.setVerticalGroup(
+            PanelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelAccueilLayout.createSequentialGroup()
+                .addGap(47, 47, 47)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(AffEmploye)
+                .addGap(32, 32, 32)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(AffComp)
+                .addGap(38, 38, 38)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(AffMission)
+                .addContainerGap(334, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(226, 226, 226)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 547, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(131, 131, 131)
+                .addComponent(jLabel1)
+                .addContainerGap(139, Short.MAX_VALUE))
+            .addComponent(PanelAccueil, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(PanelAffichage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -121,10 +207,11 @@ public class Accueil extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(2, 2, 2)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 447, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(PanelAccueil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGap(0, 57, Short.MAX_VALUE)
+                    .addComponent(PanelAffichage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -141,45 +228,88 @@ public class Accueil extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void AffMissionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AffMissionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_AffMissionActionPerformed
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+    private void AffEmployeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AffEmployeMouseClicked
         // TODO add your handling code here:
         Entreprise ent;
         try {
             ent = new Entreprise();
             int i = 0;
-            String[] tabE = new String[ent.getListEmp().size()];
+            
+            jTable2.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [ent.getListEmp().size()][4],
+                new String [] {
+                    "Nom", "Prenom", "DateE", "Competence"
+                }
+            ));
+            
             for(Employe e : ent.getListEmp()){
-                tabE[i] = e.toString();
+                jTable2.setValueAt(e.getNom(), i, 0);
+                jTable2.setValueAt(e.getPrenom(), i, 1);
+                jTable2.setValueAt(e.getDateE(), i, 2);
+                jTable2.setValueAt(e.getListeComp(), i, 3);
                 i++;
             }
-            jList2.setListData(tabE);
-            jList2.setVisible(true);
+            PanelAccueil.setVisible(false);
+            PanelAffichage.setVisible(true);
+            ListeXXX.setText("Liste des Employés");
+            
+            jTable2.setVisible(true);
+            
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton1MouseClicked
+    }//GEN-LAST:event_AffEmployeMouseClicked
 
-    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+    private void AffCompMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AffCompMouseClicked
         // TODO add your handling code here:
         Entreprise ent;
         try {
             ent = new Entreprise();
             int i = 0;
-            String[] tabC = new String[ent.getListComp().size()];
+            
+            jTable2.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [ent.getListComp().size()][2],
+                new String [] {
+                    "Fr", "Eng"
+                }
+            ));
+            
             for(Competence c : ent.getListComp()){
-                tabC[i] = c.toString();
+                jTable2.setValueAt(c.getLibFr(), i, 0);
+                jTable2.setValueAt(c.getLibEng(), i, 1);
                 i++;
             }
-            jList2.setListData(tabC);
-            jList2.setVisible(true);
+            PanelAccueil.setVisible(false);
+            PanelAffichage.setVisible(true);
+            ListeXXX.setText("Liste des Competences");
+            jTable2.setVisible(true);
+            
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton2MouseClicked
+    }//GEN-LAST:event_AffCompMouseClicked
+
+    private void AffEmployeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AffEmployeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_AffEmployeActionPerformed
+
+    private void RetourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RetourActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RetourActionPerformed
+
+    private void AffMissionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AffMissionMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_AffMissionMouseClicked
+
+    private void RetourMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RetourMouseClicked
+        // TODO add your handling code here:
+        PanelAffichage.setVisible(false);
+        PanelAccueil.setVisible(true);
+    }//GEN-LAST:event_RetourMouseClicked
 
     /**
      * @param args the command line arguments
@@ -223,13 +353,19 @@ public class Accueil extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton AffComp;
+    private javax.swing.JButton AffEmploye;
+    private javax.swing.JButton AffMission;
+    private javax.swing.JLabel ListeXXX;
+    private javax.swing.JPanel PanelAccueil;
+    private javax.swing.JPanel PanelAffichage;
+    private javax.swing.JButton Retour;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JList<String> jList2;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
 }
