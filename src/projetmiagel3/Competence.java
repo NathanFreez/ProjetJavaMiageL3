@@ -20,6 +20,10 @@ public class Competence {
         this.libFr = libFr;
     }
 
+    public String getId() {
+        return id;
+    }
+
     public String getLibEng() {
         return libEng;
     }

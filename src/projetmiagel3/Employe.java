@@ -46,8 +46,10 @@ public class Employe {
     public String getDateE() {
         return dateE;
     }
-    
-    
+
+    public void setListeComp(ArrayList<String> listeComp) {
+        this.listeComp = listeComp;
+    }    
 
     @Override
     public String toString() {

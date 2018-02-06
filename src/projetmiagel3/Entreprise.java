@@ -7,6 +7,8 @@ package projetmiagel3;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -91,6 +93,23 @@ public class Entreprise {
             System.out.println(e);
         }
    }
+    
+    public void sauvegarderEmploye(ArrayList<Employe> listE) throws IOException{
+        FileWriter writer = new FileWriter(System.getProperty("user.dir") + "\\src\\projetmiagel3\\liste_personnel.csv");
+        writer.write("Prenom;Nom;date entrée entreprise;identifiant\n");
+        for (Employe e : listE){
+                writer.write(e.getPrenom() + ";" + e.getNom() + ";" + e.getDateE() + ";" + e.getId() + "\n");
+            }
+            writer.close();
+    }
+    
+    public void sauvegarderCompetence(ArrayList<Competence> listC) throws IOException{
+        FileWriter writer = new FileWriter(System.getProperty("user.dir") + "\\src\\projetmiagel3\\liste_competences.csv");
+        for (Competence c : listC){
+                writer.write(c.getId() + ";"+ c.getLibEng() + ";" + c.getLibFr() + "\n");
+            }
+            writer.close();
+    }
 
     /**
      * Methode qui permet de envoyer la liste d'employé de l'entreprise

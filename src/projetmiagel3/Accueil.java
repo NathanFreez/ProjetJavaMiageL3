@@ -5,7 +5,10 @@
  */
 package projetmiagel3;
 
+import java.awt.Dimension;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
@@ -39,6 +42,7 @@ public class Accueil extends javax.swing.JFrame {
         Retour = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
+        Enregistrer = new javax.swing.JButton();
         PanelAccueil = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         AffEmploye = new javax.swing.JButton();
@@ -81,19 +85,33 @@ public class Accueil extends javax.swing.JFrame {
         ));
         jScrollPane3.setViewportView(jTable2);
 
+        Enregistrer.setText("Enregistrer");
+        Enregistrer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                EnregistrerMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout PanelAffichageLayout = new javax.swing.GroupLayout(PanelAffichage);
         PanelAffichage.setLayout(PanelAffichageLayout);
         PanelAffichageLayout.setHorizontalGroup(
             PanelAffichageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(ListeXXX, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(PanelAffichageLayout.createSequentialGroup()
-                .addContainerGap(550, Short.MAX_VALUE)
-                .addComponent(Retour)
+                .addGroup(PanelAffichageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelAffichageLayout.createSequentialGroup()
+                        .addContainerGap(550, Short.MAX_VALUE)
+                        .addComponent(Retour))
+                    .addGroup(PanelAffichageLayout.createSequentialGroup()
+                        .addGroup(PanelAffichageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(PanelAffichageLayout.createSequentialGroup()
+                                .addGap(85, 85, 85)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(PanelAffichageLayout.createSequentialGroup()
+                                .addGap(267, 267, 267)
+                                .addComponent(Enregistrer)))
+                        .addGap(0, 78, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(PanelAffichageLayout.createSequentialGroup()
-                .addGap(85, 85, 85)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         PanelAffichageLayout.setVerticalGroup(
             PanelAffichageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -104,7 +122,9 @@ public class Accueil extends javax.swing.JFrame {
                 .addComponent(ListeXXX)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(219, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(Enregistrer)
+                .addContainerGap(178, Short.MAX_VALUE))
         );
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -274,13 +294,14 @@ public class Accueil extends javax.swing.JFrame {
             jTable2.setModel(new javax.swing.table.DefaultTableModel(
                 new Object [ent.getListComp().size()][2],
                 new String [] {
-                    "Fr", "Eng"
+                    "Id", "Fr", "Eng"
                 }
             ));
             
             for(Competence c : ent.getListComp()){
-                jTable2.setValueAt(c.getLibFr(), i, 0);
-                jTable2.setValueAt(c.getLibEng(), i, 1);
+                jTable2.setValueAt(c.getId(), i, 0);
+                jTable2.setValueAt(c.getLibFr(), i, 1);
+                jTable2.setValueAt(c.getLibEng(), i, 2);
                 i++;
             }
             PanelAccueil.setVisible(false);
@@ -310,6 +331,45 @@ public class Accueil extends javax.swing.JFrame {
         PanelAffichage.setVisible(false);
         PanelAccueil.setVisible(true);
     }//GEN-LAST:event_RetourMouseClicked
+
+    private void EnregistrerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EnregistrerMouseClicked
+        try {
+            // TODO add your handling code here:
+            Entreprise ent = new Entreprise();
+            switch(ListeXXX.getText()){
+                case "Liste des Employés":
+                    ArrayList<Employe> listE = new ArrayList<Employe>();
+                    ArrayList<String> listCE = new ArrayList<String>();
+
+                    for(int i=0; i<jTable2.getRowCount(); i++){
+                        Employe e = new Employe(i+1, (String)jTable2.getValueAt(i, 1), (String)jTable2.getValueAt(i, 0), (String)jTable2.getValueAt(i, 2));
+                        listCE = (ArrayList<String>)jTable2.getValueAt(i, 3);
+                        e.setListeComp(listCE);
+                        listE.add(e);
+                    }
+                    ent.sauvegarderEmploye(listE);
+                    break;
+                case "Liste des Competences":
+                    ArrayList<Competence> listC = new ArrayList<Competence>();
+                    
+                    for(int i=0; i<jTable2.getRowCount(); i++){
+                        Competence c = new Competence((String)jTable2.getValueAt(i, 0), (String)jTable2.getValueAt(i, 2), (String)jTable2.getValueAt(i, 1));
+                        listC.add(c);
+                    }
+                    ent.sauvegarderCompetence(listC);
+                    break;
+                default:
+                    break;
+            }
+            PanelAffichage.setVisible(false);
+            PanelAccueil.setVisible(true);
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_EnregistrerMouseClicked
 
     /**
      * @param args the command line arguments
@@ -356,6 +416,7 @@ public class Accueil extends javax.swing.JFrame {
     private javax.swing.JButton AffComp;
     private javax.swing.JButton AffEmploye;
     private javax.swing.JButton AffMission;
+    private javax.swing.JButton Enregistrer;
     private javax.swing.JLabel ListeXXX;
     private javax.swing.JPanel PanelAccueil;
     private javax.swing.JPanel PanelAffichage;
