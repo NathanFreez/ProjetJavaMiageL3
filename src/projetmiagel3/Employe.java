@@ -19,6 +19,13 @@ public class Employe {
     private String dateE;
     private ArrayList<String> listeComp;
 
+    /**
+     * Constructeur d'Employe, prend en parametre un id, un prenom, un nom et une date d'embauche
+     * @param id
+     * @param prenom
+     * @param nom
+     * @param dateE
+     */
     public Employe(int id, String prenom, String nom, String dateE) {
         this.id = id;
         this.prenom = prenom;
@@ -27,10 +34,18 @@ public class Employe {
         listeComp = new ArrayList<String>();
     }
 
+    /**
+     * Methode qui permet de envoyer la liste de Competence d'un employé
+     * @return
+     */
     public ArrayList<String> getListeComp() {
         return listeComp;
     }
 
+    /**
+     * Methode d'affiche d'un employe, affiche ses caractéristiques et ses competences
+     * @return
+     */
     @Override
     public String toString() {
         String chaine = id + " " + prenom + " " + nom + " embauché le " + dateE + ". Competence {";

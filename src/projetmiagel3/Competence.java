@@ -14,12 +14,22 @@ public class Competence {
     private String libEng;
     private String libFr;
 
+    /**
+     * Constructeur de competence, prend en parametre l'id, le libellé en anglais et le libellé en francais
+     * @param id
+     * @param libEng
+     * @param libFr
+     */
     public Competence(String id, String libEng, String libFr) {
         this.id = id;
         this.libEng = libEng;
         this.libFr = libFr;
     }
 
+    /**
+     * Methode d'affichage d'une competence
+     * @return
+     */
     @Override
     public String toString() {
         return id + libFr + "(" +libEng +")";

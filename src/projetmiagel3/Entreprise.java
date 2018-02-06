@@ -18,6 +18,10 @@ public class Entreprise {
     private ArrayList<Competence> listComp;
     private ArrayList<Mission> listMis;
 
+    /**
+     * Constructeur d'Entreprise, ne prend pas de paramètres, elle instancie les listes et les charges grâce aux fichier csv
+     * @throws FileNotFoundException
+     */
     public Entreprise() throws FileNotFoundException {
         listEmp = new ArrayList<Employe>();
         listComp = new ArrayList<Competence>();
@@ -27,6 +31,10 @@ public class Entreprise {
         chargerCompetenceEmploye();
     }
     
+    /**
+     * Methode qui permet de charger la liste d'employe en fonction du fichier csv
+     * @throws FileNotFoundException
+     */
     public void chargerEmploye() throws FileNotFoundException{
         String line;
         String fichierEmploye = System.getProperty("user.dir") + "\\src\\projetmiagel3\\liste_personnel.csv";
@@ -43,8 +51,11 @@ public class Entreprise {
         }
     }
     
-    
-   public void chargerCompetence() throws FileNotFoundException {
+    /**
+     * Methode qui permet de charger la liste des compétences en fonction du fichier csv
+     * @throws FileNotFoundException
+     */
+    public void chargerCompetence() throws FileNotFoundException {
         String line;
         String fichierCompetence = System.getProperty("user.dir") + "\\src\\projetmiagel3\\liste_competences.csv";
         java.util.Scanner entree = new java.util.Scanner(new FileReader(fichierCompetence));
@@ -59,7 +70,11 @@ public class Entreprise {
         }
    }
    
-   public void chargerCompetenceEmploye() throws FileNotFoundException{
+    /**
+     * Methode qui permet de charger la liste des compétences d'un employé en fonction du fichier csv
+     * @throws FileNotFoundException
+     */
+    public void chargerCompetenceEmploye() throws FileNotFoundException{
         String line;
         String fichierCompetence = System.getProperty("user.dir") + "\\src\\projetmiagel3\\competences_personnel.csv";
         java.util.Scanner entree = new java.util.Scanner(new FileReader(fichierCompetence));
@@ -77,18 +92,34 @@ public class Entreprise {
         }
    }
 
+    /**
+     * Methode qui permet de envoyer la liste d'employé de l'entreprise
+     * @return
+     */
     public ArrayList<Employe> getListEmp() {
         return listEmp;
     }
 
+    /**
+     * Methode qui permet de envoyer la liste de compétences de l'entreprise
+     * @return
+     */
     public ArrayList<Competence> getListComp() {
         return listComp;
     }
 
+    /**
+     * Methode qui permet de envoyer la liste de mission de l'entreprise
+     * @return
+     */
     public ArrayList<Mission> getListMis() {
         return listMis;
     }
 
+    /**
+     * Methode qui prend en parametre une mission et qui permet de l'ajouter à la liste des missions de l'entreprise
+     * @param m
+     */
     public void ajouterMission(Mission m){
         this.listMis.add(m);
     }

@@ -15,18 +15,28 @@ import java.util.HashMap;
 public class Mission {
     
     private int id;
-    private Mission type;
+    private TypeMission type;
     private Date dateD;
     private int duree;
     private HashMap<Competence,Integer> mapC;
     private int nbTotalEmp;
     private HashMap<Competence,Employe[]> mapE;
 
-    public Mission(int id, Mission type, Date dateD, int duree) {
+    /**
+     * Constructeur d'une mission qui prend en parametre un id, une date de début de mission, et une duree (en jours)
+     * @param id
+     * @param type
+     * @param dateD
+     * @param duree
+     */
+    public Mission(int id, Date dateD, int duree) {
         this.id = id;
-        this.type = type;
+        this.type = TypeMission.preparation;
         this.dateD = dateD;
         this.duree = duree;
+        this.mapC = new HashMap<Competence,Integer>();
+        this.nbTotalEmp = 0;
+        this.mapE = new HashMap<Competence,Employe[]>();
     }
        
 }
