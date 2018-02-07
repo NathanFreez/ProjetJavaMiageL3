@@ -39,9 +39,6 @@ public class Competence {
         return id + libFr + "(" +libEng +")";
     }
     
-    public void testgitkraken(){
-        System.out.println("dsqdsdqdqsd");
-    }
     
     
     
