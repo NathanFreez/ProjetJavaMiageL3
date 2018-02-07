@@ -40,7 +40,10 @@ public class Competence {
     }
     
     
-    
+    public void salut() {
+     int i=0;
+    }
+}
     
     
 }
