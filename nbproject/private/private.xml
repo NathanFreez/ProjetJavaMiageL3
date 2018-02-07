@@ -3,7 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< Updated upstream
             <file>file:/C:/Users/Samy/Documents/NetBeansProjects/ProjetJavaMiageL3/src/projetmiagel3/Competence.java</file>
+=======
+            <file>file:/C:/Users/Nathan/Documents/NetBeansProjects/ProjetJavaMiageL3/src/projetmiagel3/Competence.java</file>
+            <file>file:/C:/Users/Nathan/Documents/NetBeansProjects/ProjetJavaMiageL3/src/projetmiagel3/Employe.java</file>
+            <file>file:/C:/Users/Nathan/Documents/NetBeansProjects/ProjetJavaMiageL3/src/projetmiagel3/Mission.java</file>
+            <file>file:/C:/Users/Nathan/Documents/NetBeansProjects/ProjetJavaMiageL3/src/projetmiagel3/Entreprise.java</file>
+>>>>>>> Stashed changes
         </group>
     </open-files>
 </project-private>
