@@ -15,7 +15,7 @@ import java.util.ArrayList;
  *
  * @author Nathan
  */
-public class Entreprise {
+public class Entreprise implements IFichierCSV{
     private ArrayList<Employe> listEmp;
     private ArrayList<Competence> listComp;
     private ArrayList<Mission> listMis;
