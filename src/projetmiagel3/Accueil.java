@@ -8,7 +8,12 @@ package projetmiagel3;
 import java.awt.Dimension;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
@@ -35,28 +40,45 @@ public class Accueil extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        PanelPrincipal = new javax.swing.JPanel();
         PanelAffichage = new javax.swing.JPanel();
         ListeXXX = new javax.swing.JLabel();
-        Retour = new javax.swing.JButton();
+        RetourPAffichage = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jTableAffichage = new javax.swing.JTable();
         Enregistrer = new javax.swing.JButton();
         PanelAccueil = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        TAffEMploye = new javax.swing.JLabel();
         AffEmploye = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
+        TAffComp = new javax.swing.JLabel();
         AffComp = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
+        TAffMission = new javax.swing.JLabel();
         AffMission = new javax.swing.JButton();
+        TCreerMission = new javax.swing.JLabel();
+        CreerMission = new javax.swing.JButton();
+        PanelCreerMission = new javax.swing.JPanel();
+        TCreerMission2 = new javax.swing.JLabel();
+        RetourPCreerMission = new javax.swing.JButton();
+        TIdMission = new javax.swing.JLabel();
+        JTIdMission = new javax.swing.JTextField();
+        TNomMission = new javax.swing.JLabel();
+        JTNomMission = new javax.swing.JTextField();
+        TDureeMission = new javax.swing.JLabel();
+        JSpinDureeMission = new javax.swing.JSpinner();
+        TBesoinEmp = new javax.swing.JLabel();
+        JSBesoinEmp = new javax.swing.JSpinner();
+        TDateDMission = new javax.swing.JLabel();
+        JDDateDMission = new com.toedter.calendar.JDateChooser();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableCreerMission = new javax.swing.JTable();
+        TSelComp1 = new javax.swing.JLabel();
+        TSelComp2 = new javax.swing.JLabel();
+        EnrMission = new javax.swing.JButton();
+        TitrePrincipal = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        jLabel1.setText("Gestion de l'entreprise");
+        PanelPrincipal.setBackground(new java.awt.Color(255, 255, 255));
 
         PanelAffichage.setVisible(false);
 
@@ -64,26 +86,24 @@ public class Accueil extends javax.swing.JFrame {
         ListeXXX.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ListeXXX.setText("Liste des ?????");
 
-        Retour.setText("Retour");
-        Retour.addMouseListener(new java.awt.event.MouseAdapter() {
+        RetourPAffichage.setText("Retour");
+        RetourPAffichage.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                RetourMouseClicked(evt);
+                RetourPAffichageMouseClicked(evt);
             }
         });
-        Retour.addActionListener(new java.awt.event.ActionListener() {
+        RetourPAffichage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RetourActionPerformed(evt);
+                RetourPAffichageActionPerformed(evt);
             }
         });
 
-        jTable2.setVisible(false);
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [50][4],
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
+        jTableAffichage.setVisible(false);
+        jTableAffichage.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [0][0],
+            new String [0]
         ));
-        jScrollPane3.setViewportView(jTable2);
+        jScrollPane3.setViewportView(jTableAffichage);
 
         Enregistrer.setText("Enregistrer");
         Enregistrer.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -97,39 +117,33 @@ public class Accueil extends javax.swing.JFrame {
         PanelAffichageLayout.setHorizontalGroup(
             PanelAffichageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(ListeXXX, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(PanelAffichageLayout.createSequentialGroup()
-                .addGroup(PanelAffichageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelAffichageLayout.createSequentialGroup()
-                        .addContainerGap(550, Short.MAX_VALUE)
-                        .addComponent(Retour))
-                    .addGroup(PanelAffichageLayout.createSequentialGroup()
-                        .addGroup(PanelAffichageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(PanelAffichageLayout.createSequentialGroup()
-                                .addGap(85, 85, 85)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(PanelAffichageLayout.createSequentialGroup()
-                                .addGap(267, 267, 267)
-                                .addComponent(Enregistrer)))
-                        .addGap(0, 78, Short.MAX_VALUE)))
+            .addComponent(jScrollPane3)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelAffichageLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(RetourPAffichage)
                 .addContainerGap())
+            .addGroup(PanelAffichageLayout.createSequentialGroup()
+                .addGap(482, 482, 482)
+                .addComponent(Enregistrer)
+                .addContainerGap(494, Short.MAX_VALUE))
         );
         PanelAffichageLayout.setVerticalGroup(
             PanelAffichageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelAffichageLayout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addComponent(Retour)
+                .addGap(27, 27, 27)
+                .addComponent(RetourPAffichage)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(ListeXXX)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(Enregistrer)
-                .addContainerGap(178, Short.MAX_VALUE))
+                .addContainerGap(438, Short.MAX_VALUE))
         );
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Afficher la liste des Employés");
+        TAffEMploye.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        TAffEMploye.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TAffEMploye.setText("Afficher la liste des Employés");
 
         AffEmploye.setText("Liste Employé");
         AffEmploye.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -143,9 +157,9 @@ public class Accueil extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Afficher la liste des Missions");
+        TAffComp.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        TAffComp.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TAffComp.setText("Afficher la liste des Missions");
 
         AffComp.setText("Liste Competence");
         AffComp.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -154,9 +168,9 @@ public class Accueil extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Afficher la liste des Compétences");
+        TAffMission.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        TAffMission.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TAffMission.setText("Afficher la liste des Compétences");
 
         AffMission.setText("Liste Mission");
         AffMission.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -170,79 +184,268 @@ public class Accueil extends javax.swing.JFrame {
             }
         });
 
+        TCreerMission.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        TCreerMission.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TCreerMission.setText("Créer une Mission");
+
+        CreerMission.setText("Créer");
+        CreerMission.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CreerMissionMouseClicked(evt);
+            }
+        });
+        CreerMission.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CreerMissionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout PanelAccueilLayout = new javax.swing.GroupLayout(PanelAccueil);
         PanelAccueil.setLayout(PanelAccueilLayout);
         PanelAccueilLayout.setHorizontalGroup(
             PanelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(TAffEMploye, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(TAffMission, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(TAffComp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(PanelAccueilLayout.createSequentialGroup()
                 .addGroup(PanelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(TCreerMission, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(PanelAccueilLayout.createSequentialGroup()
-                        .addGap(196, 196, 196)
+                        .addGap(415, 415, 415)
+                        .addComponent(AffEmploye, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(PanelAccueilLayout.createSequentialGroup()
                         .addGroup(PanelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(AffEmploye, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(PanelAccueilLayout.createSequentialGroup()
-                                .addGap(5, 5, 5)
-                                .addComponent(AffMission, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(PanelAccueilLayout.createSequentialGroup()
-                        .addGap(181, 181, 181)
-                        .addComponent(AffComp, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(399, 399, 399)
+                                .addComponent(AffComp, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(PanelAccueilLayout.createSequentialGroup()
+                                .addGap(419, 419, 419)
+                                .addComponent(AffMission, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(PanelAccueilLayout.createSequentialGroup()
+                .addGap(455, 455, 455)
+                .addComponent(CreerMission, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         PanelAccueilLayout.setVerticalGroup(
             PanelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelAccueilLayout.createSequentialGroup()
                 .addGap(47, 47, 47)
-                .addComponent(jLabel2)
+                .addComponent(TAffEMploye)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(AffEmploye)
                 .addGap(32, 32, 32)
-                .addComponent(jLabel4)
+                .addComponent(TAffMission)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(AffComp)
                 .addGap(38, 38, 38)
-                .addComponent(jLabel3)
+                .addComponent(TAffComp)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(AffMission)
-                .addContainerGap(334, Short.MAX_VALUE))
+                .addGap(38, 38, 38)
+                .addComponent(TCreerMission)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(CreerMission)
+                .addContainerGap(476, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(131, 131, 131)
-                .addComponent(jLabel1)
-                .addContainerGap(139, Short.MAX_VALUE))
-            .addComponent(PanelAccueil, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(PanelAffichage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        PanelAffichage.setVisible(false);
+        PanelCreerMission.setVisible(false);
+
+        TCreerMission2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        TCreerMission2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TCreerMission2.setText("Créer une Mission");
+
+        RetourPCreerMission.setText("Retour");
+        RetourPCreerMission.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                RetourPCreerMissionMouseClicked(evt);
+            }
+        });
+        RetourPCreerMission.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RetourPCreerMissionActionPerformed(evt);
+            }
+        });
+
+        TIdMission.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        TIdMission.setText("Id de la mission :");
+
+        TNomMission.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        TNomMission.setText("Nom de la mission :");
+
+        TDureeMission.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        TDureeMission.setText("Duree de la mission (en jours) :");
+
+        TBesoinEmp.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        TBesoinEmp.setText("Besoin en employé :");
+
+        TDateDMission.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        TDateDMission.setText("Date de début de la mission : ");
+
+        jTableCreerMission.setVisible(false);
+        jTableCreerMission.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [0][0],
+            new String [0]
+        ));
+        jScrollPane1.setViewportView(jTableCreerMission);
+
+        TSelComp1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        TSelComp1.setText("Selectionner pour chaque compétence, le nombre d'employé necessaire : ");
+
+        TSelComp2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        TSelComp2.setText("(Laisser 0 si la missio n'a pas besoin de la compétence)");
+        TSelComp2.setAlignmentY(2.0F);
+
+        EnrMission.setText("Créer");
+        EnrMission.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                EnrMissionMouseClicked(evt);
+            }
+        });
+        EnrMission.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EnrMissionActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout PanelCreerMissionLayout = new javax.swing.GroupLayout(PanelCreerMission);
+        PanelCreerMission.setLayout(PanelCreerMissionLayout);
+        PanelCreerMissionLayout.setHorizontalGroup(
+            PanelCreerMissionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(TCreerMission2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(PanelCreerMissionLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(2, 2, 2)
+                .addGroup(PanelCreerMissionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelCreerMissionLayout.createSequentialGroup()
+                        .addComponent(jScrollPane1)
+                        .addContainerGap())
+                    .addGroup(PanelCreerMissionLayout.createSequentialGroup()
+                        .addGap(0, 956, Short.MAX_VALUE)
+                        .addComponent(RetourPCreerMission)
+                        .addGap(10, 10, 10))
+                    .addGroup(PanelCreerMissionLayout.createSequentialGroup()
+                        .addGroup(PanelCreerMissionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(PanelCreerMissionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(PanelCreerMissionLayout.createSequentialGroup()
+                                    .addComponent(TIdMission)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(JTIdMission, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(PanelCreerMissionLayout.createSequentialGroup()
+                                    .addComponent(TNomMission)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(JTNomMission, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(PanelCreerMissionLayout.createSequentialGroup()
+                                    .addComponent(TDureeMission)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(JSpinDureeMission)))
+                            .addGroup(PanelCreerMissionLayout.createSequentialGroup()
+                                .addComponent(TBesoinEmp)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(JSBesoinEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(TSelComp1)
+                            .addComponent(TSelComp2))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(PanelCreerMissionLayout.createSequentialGroup()
+                        .addComponent(TDateDMission)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(JDDateDMission, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(PanelCreerMissionLayout.createSequentialGroup()
+                .addGap(491, 491, 491)
+                .addComponent(EnrMission)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        PanelCreerMissionLayout.setVerticalGroup(
+            PanelCreerMissionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelCreerMissionLayout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addComponent(RetourPCreerMission)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(TCreerMission2)
+                .addGap(46, 46, 46)
+                .addGroup(PanelCreerMissionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TIdMission)
+                    .addComponent(JTIdMission, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(PanelCreerMissionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TNomMission)
+                    .addComponent(JTNomMission, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(PanelCreerMissionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TDureeMission)
+                    .addComponent(JSpinDureeMission, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(PanelCreerMissionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TBesoinEmp)
+                    .addComponent(JSBesoinEmp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(PanelCreerMissionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelCreerMissionLayout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(TDateDMission))
+                    .addGroup(PanelCreerMissionLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(JDDateDMission, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(TSelComp1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(TSelComp2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(EnrMission)
+                .addContainerGap(126, Short.MAX_VALUE))
+        );
+
+        TitrePrincipal.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        TitrePrincipal.setText("Gestion de l'entreprise");
+
+        javax.swing.GroupLayout PanelPrincipalLayout = new javax.swing.GroupLayout(PanelPrincipal);
+        PanelPrincipal.setLayout(PanelPrincipalLayout);
+        PanelPrincipalLayout.setHorizontalGroup(
+            PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(PanelAccueil, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(PanelPrincipalLayout.createSequentialGroup()
+                .addGap(353, 353, 353)
+                .addComponent(TitrePrincipal)
+                .addContainerGap(353, Short.MAX_VALUE))
+            .addGroup(PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(PanelAffichage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(PanelPrincipalLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(PanelCreerMission, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+        PanelPrincipalLayout.setVerticalGroup(
+            PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelPrincipalLayout.createSequentialGroup()
+                .addGap(7, 7, 7)
+                .addComponent(TitrePrincipal)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(PanelAccueil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                    .addGap(0, 57, Short.MAX_VALUE)
+            .addGroup(PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelPrincipalLayout.createSequentialGroup()
+                    .addGap(0, 14, Short.MAX_VALUE)
                     .addComponent(PanelAffichage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(PanelPrincipalLayout.createSequentialGroup()
+                    .addGap(17, 17, 17)
+                    .addComponent(PanelCreerMission, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(18, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(PanelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(PanelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -259,7 +462,7 @@ public class Accueil extends javax.swing.JFrame {
             ent = new Entreprise();
             int i = 0;
             
-            jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            jTableAffichage.setModel(new javax.swing.table.DefaultTableModel(
                 new Object [ent.getListEmp().size()][4],
                 new String [] {
                     "Nom", "Prenom", "DateE", "Competence"
@@ -267,17 +470,17 @@ public class Accueil extends javax.swing.JFrame {
             ));
             
             for(Employe e : ent.getListEmp()){
-                jTable2.setValueAt(e.getNom(), i, 0);
-                jTable2.setValueAt(e.getPrenom(), i, 1);
-                jTable2.setValueAt(e.getDateE(), i, 2);
-                jTable2.setValueAt(e.getListeComp(), i, 3);
+                jTableAffichage.setValueAt(e.getNom(), i, 0);
+                jTableAffichage.setValueAt(e.getPrenom(), i, 1);
+                jTableAffichage.setValueAt(e.getDateE(), i, 2);
+                jTableAffichage.setValueAt(e.getListeComp(), i, 3);
                 i++;
             }
             PanelAccueil.setVisible(false);
             PanelAffichage.setVisible(true);
             ListeXXX.setText("Liste des Employés");
             
-            jTable2.setVisible(true);
+            jTableAffichage.setVisible(true);
             
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
@@ -291,7 +494,7 @@ public class Accueil extends javax.swing.JFrame {
             ent = new Entreprise();
             int i = 0;
             
-            jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            jTableAffichage.setModel(new javax.swing.table.DefaultTableModel(
                 new Object [ent.getListComp().size()][2],
                 new String [] {
                     "Id", "Fr", "Eng"
@@ -299,15 +502,15 @@ public class Accueil extends javax.swing.JFrame {
             ));
             
             for(Competence c : ent.getListComp()){
-                jTable2.setValueAt(c.getId(), i, 0);
-                jTable2.setValueAt(c.getLibFr(), i, 1);
-                jTable2.setValueAt(c.getLibEng(), i, 2);
+                jTableAffichage.setValueAt(c.getId(), i, 0);
+                jTableAffichage.setValueAt(c.getLibFr(), i, 1);
+                jTableAffichage.setValueAt(c.getLibEng(), i, 2);
                 i++;
             }
             PanelAccueil.setVisible(false);
             PanelAffichage.setVisible(true);
             ListeXXX.setText("Liste des Competences");
-            jTable2.setVisible(true);
+            jTableAffichage.setVisible(true);
             
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
@@ -318,19 +521,56 @@ public class Accueil extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_AffEmployeActionPerformed
 
-    private void RetourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RetourActionPerformed
+    private void RetourPAffichageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RetourPAffichageActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_RetourActionPerformed
+    }//GEN-LAST:event_RetourPAffichageActionPerformed
 
     private void AffMissionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AffMissionMouseClicked
         // TODO add your handling code here:
+        Entreprise ent;
+        try {
+            ent = new Entreprise();
+            int i = 0;
+            
+            jTableAffichage.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [ent.getListMis().size()][7],
+                new String [] {
+                    "Id", "Nom", "Type", "Date de début", "Duree (en jours)", "Employes affectés", "Competence : employe necessaire"
+                }
+            ));
+            
+            for(Mission m : ent.getListMis()){
+                jTableAffichage.setValueAt(m.getId(), i, 0);
+                jTableAffichage.setValueAt(m.getNom(), i, 1);
+                jTableAffichage.setValueAt(m.getType(), i, 2);
+                jTableAffichage.setValueAt(m.getDateD(), i, 3);
+                jTableAffichage.setValueAt(m.getDuree(), i, 4);
+                jTableAffichage.setValueAt(m.getNbTotalEmp(), i, 5);
+                String mapC = "";
+                for(Map.Entry<Competence, Integer> ci : m.getMapC().entrySet()){
+                    mapC += "{" + ci.getKey().getId() + "} : " + ci.getValue() + ", ";
+                }
+                jTableAffichage.setValueAt(mapC, i, 6);
+            }
+            
+            PanelAccueil.setVisible(false);
+            PanelAffichage.setVisible(true);
+            Enregistrer.setVisible(false);
+            ListeXXX.setText("Liste des Missions");
+            
+            jTableAffichage.setVisible(true);
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_AffMissionMouseClicked
 
-    private void RetourMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RetourMouseClicked
+    private void RetourPAffichageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RetourPAffichageMouseClicked
         // TODO add your handling code here:
         PanelAffichage.setVisible(false);
+        Enregistrer.setVisible(true);
         PanelAccueil.setVisible(true);
-    }//GEN-LAST:event_RetourMouseClicked
+    }//GEN-LAST:event_RetourPAffichageMouseClicked
 
     private void EnregistrerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EnregistrerMouseClicked
         try {
@@ -341,9 +581,9 @@ public class Accueil extends javax.swing.JFrame {
                     ArrayList<Employe> listE = new ArrayList<Employe>();
                     ArrayList<String> listCE = new ArrayList<String>();
 
-                    for(int i=0; i<jTable2.getRowCount(); i++){
-                        Employe e = new Employe(i+1, (String)jTable2.getValueAt(i, 1), (String)jTable2.getValueAt(i, 0), (String)jTable2.getValueAt(i, 2));
-                        listCE = (ArrayList<String>)jTable2.getValueAt(i, 3);
+                    for(int i=0; i<jTableAffichage.getRowCount(); i++){
+                        Employe e = new Employe(i+1, (String)jTableAffichage.getValueAt(i, 1), (String)jTableAffichage.getValueAt(i, 0), (String)jTableAffichage.getValueAt(i, 2));
+                        listCE = (ArrayList<String>)jTableAffichage.getValueAt(i, 3);
                         e.setListeComp(listCE);
                         listE.add(e);
                     }
@@ -352,8 +592,8 @@ public class Accueil extends javax.swing.JFrame {
                 case "Liste des Competences":
                     ArrayList<Competence> listC = new ArrayList<Competence>();
                     
-                    for(int i=0; i<jTable2.getRowCount(); i++){
-                        Competence c = new Competence((String)jTable2.getValueAt(i, 0), (String)jTable2.getValueAt(i, 2), (String)jTable2.getValueAt(i, 1));
+                    for(int i=0; i<jTableAffichage.getRowCount(); i++){
+                        Competence c = new Competence((String)jTableAffichage.getValueAt(i, 0), (String)jTableAffichage.getValueAt(i, 2), (String)jTableAffichage.getValueAt(i, 1));
                         listC.add(c);
                     }
                     ent.sauvegarderCompetence(listC);
@@ -370,6 +610,87 @@ public class Accueil extends javax.swing.JFrame {
             Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_EnregistrerMouseClicked
+
+    private void CreerMissionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreerMissionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CreerMissionActionPerformed
+
+    private void RetourPCreerMissionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RetourPCreerMissionMouseClicked
+        // TODO add your handling code here:
+        PanelCreerMission.setVisible(false);
+        PanelAccueil.setVisible(true);
+    }//GEN-LAST:event_RetourPCreerMissionMouseClicked
+
+    private void RetourPCreerMissionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RetourPCreerMissionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RetourPCreerMissionActionPerformed
+
+    private void CreerMissionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CreerMissionMouseClicked
+        // TODO add your handling code here:      
+        Entreprise ent;
+        try {
+            ent = new Entreprise();
+            int i = 0;
+            
+            jTableCreerMission.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [ent.getListComp().size()][2],
+                new String [] {
+                    "Competence", "Nombre d'employé",
+                }
+            ));
+            
+            for(Competence c : ent.getListComp()){
+                jTableCreerMission.setValueAt(c, i, 0);
+                jTableCreerMission.setValueAt(0, i, 1);
+                i++;
+            }
+            PanelAccueil.setVisible(false);
+            PanelCreerMission.setVisible(true);
+            
+            jTableCreerMission.setVisible(true);
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_CreerMissionMouseClicked
+
+    private void EnrMissionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnrMissionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_EnrMissionActionPerformed
+
+    private void EnrMissionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EnrMissionMouseClicked
+        try {
+            // TODO add your handling code here:
+            Entreprise ent = new Entreprise();
+            HashMap<Competence, Integer> mapC = new HashMap<Competence, Integer>();
+            for(int i=0; i<jTableCreerMission.getRowCount(); i++){
+                Competence c = (Competence)jTableCreerMission.getValueAt(i, 0);
+                if((jTableCreerMission.getValueAt(i, 1)) instanceof String){
+                    if(Integer.parseInt((String)jTableCreerMission.getValueAt(i, 1)) > 0){
+                        mapC.put(c, Integer.parseInt((String)jTableCreerMission.getValueAt(i, 1)));
+                    }
+                }
+                else {
+                    if((Integer)jTableCreerMission.getValueAt(i, 1) > 0){
+                        mapC.put(c, (Integer)jTableCreerMission.getValueAt(i, 1));                        
+                    }
+                }
+            }
+            Mission nouvMission = new Mission(JTIdMission.getText(), JTNomMission.getText(), JDDateDMission.getDate().toString(), (int)JSpinDureeMission.getValue(), (int)JSBesoinEmp.getValue());
+            nouvMission.setMapC(mapC);
+            ent.ajouterMission(nouvMission);
+            
+            PanelCreerMission.setVisible(false);
+            PanelAccueil.setVisible(true);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
+        } /*catch(Exception e){
+            System.out.println(e);
+        }*/
+    }//GEN-LAST:event_EnrMissionMouseClicked
 
     /**
      * @param args the command line arguments
@@ -416,17 +737,37 @@ public class Accueil extends javax.swing.JFrame {
     private javax.swing.JButton AffComp;
     private javax.swing.JButton AffEmploye;
     private javax.swing.JButton AffMission;
+    private javax.swing.JButton CreerMission;
+    private javax.swing.JButton EnrMission;
     private javax.swing.JButton Enregistrer;
+    private com.toedter.calendar.JDateChooser JDDateDMission;
+    private javax.swing.JSpinner JSBesoinEmp;
+    private javax.swing.JSpinner JSpinDureeMission;
+    private javax.swing.JTextField JTIdMission;
+    private javax.swing.JTextField JTNomMission;
     private javax.swing.JLabel ListeXXX;
     private javax.swing.JPanel PanelAccueil;
     private javax.swing.JPanel PanelAffichage;
-    private javax.swing.JButton Retour;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel PanelCreerMission;
+    private javax.swing.JPanel PanelPrincipal;
+    private javax.swing.JButton RetourPAffichage;
+    private javax.swing.JButton RetourPCreerMission;
+    private javax.swing.JLabel TAffComp;
+    private javax.swing.JLabel TAffEMploye;
+    private javax.swing.JLabel TAffMission;
+    private javax.swing.JLabel TBesoinEmp;
+    private javax.swing.JLabel TCreerMission;
+    private javax.swing.JLabel TCreerMission2;
+    private javax.swing.JLabel TDateDMission;
+    private javax.swing.JLabel TDureeMission;
+    private javax.swing.JLabel TIdMission;
+    private javax.swing.JLabel TNomMission;
+    private javax.swing.JLabel TSelComp1;
+    private javax.swing.JLabel TSelComp2;
+    private javax.swing.JLabel TitrePrincipal;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTableAffichage;
+    private javax.swing.JTable jTableCreerMission;
     // End of variables declaration//GEN-END:variables
 }

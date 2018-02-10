@@ -14,9 +14,10 @@ import java.util.HashMap;
  */
 public class Mission {
     
-    private int id;
+    private String id;
+    private String nom;
     private TypeMission type;
-    private Date dateD;
+    private String dateD;
     private int duree;
     private HashMap<Competence,Integer> mapC;
     private int nbTotalEmp;
@@ -29,14 +30,50 @@ public class Mission {
      * @param dateD
      * @param duree
      */
-    public Mission(int id, Date dateD, int duree) {
+    public Mission(String id, String nom, String dateD, int duree, int nbTotalEmp) {
         this.id = id;
+        this.nom = nom;
         this.type = TypeMission.preparation;
         this.dateD = dateD;
         this.duree = duree;
         this.mapC = new HashMap<Competence,Integer>();
-        this.nbTotalEmp = 0;
+        this.nbTotalEmp = nbTotalEmp;
         this.mapE = new HashMap<Competence,Employe[]>();
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public TypeMission getType() {
+        return type;
+    }
+
+    public String getDateD() {
+        return dateD;
+    }
+
+    public int getDuree() {
+        return duree;
+    }
+
+    public int getNbTotalEmp() {
+        return nbTotalEmp;
+    }
+
+    public HashMap<Competence, Integer> getMapC() {
+        return mapC;
+    }
+
+    public void setMapC(HashMap<Competence, Integer> mapC) {
+        this.mapC = mapC;
+    }
+    
+    
+    
        
 }

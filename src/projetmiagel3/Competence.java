@@ -36,14 +36,11 @@ public class Competence {
     
     @Override
     public String toString() {
-        return id + libFr + "(" +libEng +")";
+        return id + " " + libFr + "(" +libEng +")";
     }
     
     
     public void salut() {
      int i=0;
     }
-}
-    
-    
 }
