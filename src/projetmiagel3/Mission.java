@@ -41,6 +41,17 @@ public class Mission {
         this.mapE = new HashMap<Competence,Employe[]>();
     }
 
+    public Mission(String id, String nom, TypeMission type, String dateD, int duree, int nbTotalEmp) {
+        this.id = id;
+        this.nom = nom;
+        this.type = type;
+        this.dateD = dateD;
+        this.duree = duree;
+        this.mapC = new HashMap<Competence,Integer>();
+        this.nbTotalEmp = nbTotalEmp;
+        this.mapE = new HashMap<Competence,Employe[]>();
+    }
+
     public String getId() {
         return id;
     }

@@ -92,6 +92,20 @@ public abstract class ChargerEntrepriseCSV implements IFichier{
             while ((line = entree.nextLine()) != null){
                 String values[] = line.split(";");
                 Mission MisTmp = new Mission(values[0], values[1], values[3], Integer.parseInt(values[4]), Integer.parseInt(values[5]));
+                switch(values[2]){
+                    case "preparation" :
+                        MisTmp = new Mission(values[0], values[1], TypeMission.preparation, values[3], Integer.parseInt(values[4]), Integer.parseInt(values[5]));
+                        break;
+                    case "planifie" :
+                        MisTmp = new Mission(values[0], values[1], TypeMission.planifie, values[3], Integer.parseInt(values[4]), Integer.parseInt(values[5]));
+                        break;
+                    case "encours" :
+                        MisTmp = new Mission(values[0], values[1], TypeMission.encours, values[3], Integer.parseInt(values[4]), Integer.parseInt(values[5]));
+                        break;
+                    case "termine" :
+                        MisTmp = new Mission(values[0], values[1], TypeMission.termine, values[3], Integer.parseInt(values[4]), Integer.parseInt(values[5]));
+                        break;
+                }
                 listMis.add(MisTmp);
             }
         }
