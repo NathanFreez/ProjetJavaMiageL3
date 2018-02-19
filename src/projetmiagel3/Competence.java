@@ -38,6 +38,18 @@ public class Competence {
     public String toString() {
         return id + " " + libFr + "(" +libEng +")";
     }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setLibEng(String libEng) {
+        this.libEng = libEng;
+    }
+
+    public void setLibFr(String libFr) {
+        this.libFr = libFr;
+    }
     
     
     public void salut() {
