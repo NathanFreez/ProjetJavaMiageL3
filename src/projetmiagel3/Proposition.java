@@ -1,6 +1,7 @@
 package projetmiagel3;
 
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 
@@ -57,12 +58,13 @@ public class Proposition {
     */
     public static Mission recupMission () throws FileNotFoundException {
         String line;
+        SimpleDateFormat sdf = new SimpleDateFormat("d MMM yyyy ");
         String fichierMission = System.getProperty("user.dir") + "\\src\\projetmiagel3\\liste_missions.csv";
         java.util.Scanner entree = new java.util.Scanner(new FileReader(fichierMission));
         try {
             if ((line = entree.nextLine()) != null){
                 String values[] = line.split(";");
-                Mission MisTmp = new Mission(values[0], values[1], values[3], Integer.parseInt(values[4]), Integer.parseInt(values[5]));
+                Mission MisTmp = new Mission(values[0], values[1], sdf.parse(values[3]), Integer.parseInt(values[4]), Integer.parseInt(values[5]));
                 return MisTmp;
             }
             else 

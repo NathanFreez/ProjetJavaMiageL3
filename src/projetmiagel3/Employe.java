@@ -27,6 +27,9 @@ public class Employe {
         listeComp = new ArrayList<String>();
     }
 
+    Employe() {
+    }
+
     public ArrayList<String> getListeComp() {
         return listeComp;
     }

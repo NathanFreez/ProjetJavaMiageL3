@@ -14,6 +14,9 @@ public class Competence {
     private String libEng;
     private String libFr;
 
+    public Competence() {
+    }
+    
     public Competence(String id, String libEng, String libFr) {
         this.id = id;
         this.libEng = libEng;

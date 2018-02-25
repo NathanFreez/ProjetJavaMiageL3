@@ -28,17 +28,27 @@ public class Entreprise extends ChargerEntrepriseCSV{
         listEmp = new ArrayList<Employe>();
         listComp = new ArrayList<Competence>();
         listMis = new ArrayList<Mission>();
+        listForm = new ArrayList<Formation>();
         chargerEmploye();
         chargerCompetence();
         chargerCompetenceEmploye();
         chargerMission();
         chargerCompetenceMission();
+        chargerFormation();
+        chargerCompetenceEtEmployeFormation();
     }
 
     public void ajouterMission(Mission m) throws IOException{
         this.listMis.add(m);
         sauvegarderMission(listMis);
         sauvegardeCompetenceMission(listMis);
+    }
+    
+    public void ajouterFormation(Formation f) throws IOException{
+        this.listForm.add(f);
+        sauvegarderFormation(listForm);
+        sauvegardeCompetenceFormation(listForm);
+        sauvegardeEmployeFormation(listForm);
     }
         
     /**
@@ -65,8 +75,9 @@ public class Entreprise extends ChargerEntrepriseCSV{
         return listMis;
     }
 
-    /**
-     * Methode qui prend en parametre une mission et qui permet de l'ajouter à la liste des missions de l'entreprise
-     * @param m
-     */
+    public ArrayList<Formation> getListForm() {
+        return listForm;
+    }
+    
+
 }

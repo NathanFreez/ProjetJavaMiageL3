@@ -9,7 +9,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -21,6 +24,7 @@ public abstract class ChargerEntrepriseCSV implements IFichier{
     protected ArrayList<Employe> listEmp;
     protected ArrayList<Competence> listComp;
     protected ArrayList<Mission> listMis;
+    protected ArrayList<Formation> listForm;
         /**
      * Methode qui permet de charger la liste d'employe en fonction du fichier csv
      * @throws FileNotFoundException
@@ -86,24 +90,25 @@ public abstract class ChargerEntrepriseCSV implements IFichier{
     
     public void chargerMission() throws FileNotFoundException{
         String line;
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH);
         String fichierMission = System.getProperty("user.dir") + "\\src\\projetmiagel3\\liste_missions.csv";
         java.util.Scanner entree = new java.util.Scanner(new FileReader(fichierMission));
         try {
             while ((line = entree.nextLine()) != null){
                 String values[] = line.split(";");
-                Mission MisTmp = new Mission(values[0], values[1], values[3], Integer.parseInt(values[4]), Integer.parseInt(values[5]));
+                Mission MisTmp = new Mission();
                 switch(values[2]){
                     case "preparation" :
-                        MisTmp = new Mission(values[0], values[1], TypeMission.preparation, values[3], Integer.parseInt(values[4]), Integer.parseInt(values[5]));
+                        MisTmp = new Mission(values[0], values[1], TypeMission.preparation, sdf.parse(values[3]), Integer.parseInt(values[4]), Integer.parseInt(values[5]));
                         break;
                     case "planifie" :
-                        MisTmp = new Mission(values[0], values[1], TypeMission.planifie, values[3], Integer.parseInt(values[4]), Integer.parseInt(values[5]));
+                        MisTmp = new Mission(values[0], values[1], TypeMission.planifie, sdf.parse(values[3]), Integer.parseInt(values[4]), Integer.parseInt(values[5]));
                         break;
                     case "encours" :
-                        MisTmp = new Mission(values[0], values[1], TypeMission.encours, values[3], Integer.parseInt(values[4]), Integer.parseInt(values[5]));
+                        MisTmp = new Mission(values[0], values[1], TypeMission.encours, sdf.parse(values[3]), Integer.parseInt(values[4]), Integer.parseInt(values[5]));
                         break;
                     case "termine" :
-                        MisTmp = new Mission(values[0], values[1], TypeMission.termine, values[3], Integer.parseInt(values[4]), Integer.parseInt(values[5]));
+                        MisTmp = new Mission(values[0], values[1], TypeMission.termine, sdf.parse(values[3]), Integer.parseInt(values[4]), Integer.parseInt(values[5]));
                         break;
                 }
                 listMis.add(MisTmp);
@@ -132,6 +137,70 @@ public abstract class ChargerEntrepriseCSV implements IFichier{
                     }
                 }
             }
+        }
+        catch (Exception e){
+            System.out.println(e);
+        }
+    }
+    
+    public void chargerFormation() throws FileNotFoundException{
+        String line;
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH);
+        String fichierMission = System.getProperty("user.dir") + "\\src\\projetmiagel3\\liste_formations.csv";
+        java.util.Scanner entree = new java.util.Scanner(new FileReader(fichierMission));
+        try {
+            while ((line = entree.nextLine()) != null){
+                String values[] = line.split(";");
+                Formation formTmp = new Formation(values[0], values[1], sdf.parse(values[3]), Integer.parseInt(values[4]), Integer.parseInt(values[5]));
+                switch(values[2]){
+                    case "preparation" :
+                        formTmp = new Formation(values[0], values[1], TypeMission.preparation, sdf.parse(values[3]), Integer.parseInt(values[4]), Integer.parseInt(values[5]));
+                        break;
+                    case "planifie" :
+                        formTmp = new Formation(values[0], values[1], TypeMission.planifie, sdf.parse(values[3]), Integer.parseInt(values[4]), Integer.parseInt(values[5]));
+                        break;
+                    case "encours" :
+                        formTmp = new Formation(values[0], values[1], TypeMission.encours, sdf.parse(values[3]), Integer.parseInt(values[4]), Integer.parseInt(values[5]));
+                        break;
+                    case "termine" :
+                        formTmp = new Formation(values[0], values[1], TypeMission.termine, sdf.parse(values[3]), Integer.parseInt(values[4]), Integer.parseInt(values[5]));
+                        break;
+                }
+                listForm.add(formTmp);
+            }
+        }
+        catch (Exception e){
+            System.out.println(e);
+        }
+    }
+    
+    public void chargerCompetenceEtEmployeFormation() throws FileNotFoundException{
+        String line;
+        String fichierCompetence = System.getProperty("user.dir") + "\\src\\projetmiagel3\\competences_formation.csv";
+        String fichierEmploye = System.getProperty("user.dir") + "\\src\\projetmiagel3\\employes_formation.csv";
+        Competence cForm = new Competence();
+        Employe[] eForm = new Employe[1];
+        java.util.Scanner entreeComp = new java.util.Scanner(new FileReader(fichierCompetence));
+        java.util.Scanner entreeEmp = new java.util.Scanner(new FileReader(fichierEmploye));
+        try {
+            while ((line = entreeComp.nextLine()) != null){
+                String values[] = line.split(";");
+                for (Competence c : listComp){
+                    if(c.getId().equals(values[1])){
+                        cForm = c;
+                    }
+                }
+                while ((line = entreeEmp.nextLine()) != null){
+                    values = line.split(";");
+                    for (Employe e : listEmp){
+                        if(e.getId() == Integer.parseInt((values[1].split(" "))[0])){
+                            eForm[0] = e;
+                            listForm.get(Integer.parseInt(values[0])-1).setMapE(cForm, eForm);
+                        }
+                    }
+                }
+            }
+            
         }
         catch (Exception e){
             System.out.println(e);
@@ -167,12 +236,47 @@ public abstract class ChargerEntrepriseCSV implements IFichier{
     }
     
     public void sauvegardeCompetenceMission(ArrayList<Mission> listM) throws IOException{
-        //this.listMis = listM;
+        this.listMis = listM;
         FileWriter writer = new FileWriter(System.getProperty("user.dir") + "\\src\\projetmiagel3\\competences_mission.csv");
         for (Mission m : listM){
             writer.write(m.getId());
             for(Map.Entry<Competence, Integer> ci : m.getMapC().entrySet()){
                 writer.write(";" + ci.getKey().getId() + ":" + ci.getValue());
+            }
+            writer.write("\n");
+        }
+        writer.close();
+    }
+    
+    public void sauvegarderFormation(ArrayList<Formation> listF) throws IOException{
+        this.listForm = listF;
+        FileWriter writer = new FileWriter(System.getProperty("user.dir") + "\\src\\projetmiagel3\\liste_formations.csv");
+        for (Formation f : listF){
+            writer.write(f.getId() + ";" + f.getNom() + ";" + f.getType() + ";" + f.getDateD() + ";" + f.getDuree() + ";" + f.getNbTotalEmp() + "\n");
+        }
+        writer.close();
+    }
+    
+    public void sauvegardeCompetenceFormation(ArrayList<Formation> listF) throws IOException{
+        this.listForm = listF;
+        FileWriter writer = new FileWriter(System.getProperty("user.dir") + "\\src\\projetmiagel3\\competences_formation.csv");
+        for (Formation f : listF){
+            writer.write(f.getId());
+            for(Map.Entry<Competence, Employe[]> ce : f.getMapE().entrySet()){
+                writer.write(";" + ce.getKey().getId());
+            }
+            writer.write("\n");
+        }
+        writer.close();
+    }
+    
+    public void sauvegardeEmployeFormation(ArrayList<Formation> listF) throws IOException{
+        this.listForm = listF;
+        FileWriter writer = new FileWriter(System.getProperty("user.dir") + "\\src\\projetmiagel3\\employes_formation.csv");
+        for (Formation f : listF){
+            writer.write(f.getId());
+            for(Map.Entry<Competence, Employe[]> ce : f.getMapE().entrySet()){
+                writer.write(";" + ce.getValue()[0].getId() + " " + ce.getValue()[0].getNom() + " " + ce.getValue()[0].getPrenom());
             }
             writer.write("\n");
         }
