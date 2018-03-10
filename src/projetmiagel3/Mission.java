@@ -101,7 +101,7 @@ public class Mission {
         this.mapC = mapC;
     }
     
-    
-    
-       
+    public void setType(TypeMission type) {
+        this.type = type;
+    }    
 }

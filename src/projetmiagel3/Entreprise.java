@@ -79,5 +79,57 @@ public class Entreprise extends ChargerEntrepriseCSV{
         return listForm;
     }
     
+public void mAJDate(Entreprise ent, Date d) throws FileNotFoundException, IOException{
+        //Mise à jour de l'avancement des mission
+        ArrayList majMission = ent.getListMis();
+        for(int i = 0; i < majMission.size(); i++){
+            //Récupération mission par mission
+            Mission m = (Mission) majMission.get(i);
+            //Gestion de la date du début et de fin du projet
+            Date dateDebM = m.getDateD();
+            Date dateFinM = new Date();
+            dateFinM.setDate(dateFinM.getDate()+m.duree);
+            if (d.after(dateFinM)){
+                m.setType(TypeMission.termine);
+            }
+            if(d.after(dateDebM) && d.before(dateFinM)){
+                m.setType(TypeMission.encours);
+            }
+            if(d.before(dateDebM)){
+                m.setType(TypeMission.planifie);
+            }
+        }
+        sauvegarderMission(majMission);
+        
+        //Clarté du code, Variable de Date différente
+        //Mise à jour de l'avancement des formations
+        ArrayList <Formation> majFormation = ent.getListForm();
+        for(int i = 0; i < majFormation.size(); i++){
+            //Récupération formation par formation
+            Formation f = majFormation.get(i);
+            //Gestion de la date du début et de fin du projet
+            Date dateDebF = f.getDateD();
+            Date dateFinF = new Date();
+            dateFinF.setDate(dateFinF.getDate()+f.duree);
+            if (d.after(dateFinF)){
+                //On doit ajouter la compétence à l'employé
+                
+                f.setType(TypeMission.termine);
+                Employe e = f.getEmp();
+                ArrayList<String> test = e.getListeComp();
+                Competence c = f.getComp();                sauvegardeListeComp(e.getId(),c.getId());
+            }
+            if(d.after(dateDebF) && d.before(dateFinF)){
+                f.setType(TypeMission.encours);
+            }
+            if(d.before(dateDebF)){
+                f.setType(TypeMission.planifie);
+            }
+            
+        }
+        sauvegarderFormation(majFormation);
+        
+    }
+    
 
 }

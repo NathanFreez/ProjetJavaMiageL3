@@ -24,6 +24,10 @@ public class Formation extends Mission{
 
     }
 
+    public void setType(TypeMission type) {
+        this.type = type;
+    }
+
     public HashMap<Competence, Employe[]> getMapE() {
         return mapE;
     }

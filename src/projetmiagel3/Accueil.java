@@ -5,6 +5,8 @@
  */
 package projetmiagel3;
 
+import com.toedter.calendar.JCalendar;
+import java.awt.Dialog;
 import java.awt.Dimension;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -18,6 +20,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JDialog;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -31,6 +35,15 @@ public class Accueil extends javax.swing.JFrame {
      */
     public Accueil() throws FileNotFoundException {
         initComponents();
+        Date datAjd = new Date();
+        DateFormat mediumDateFormat = DateFormat.getDateTimeInstance(DateFormat.MEDIUM,DateFormat.MEDIUM);
+        AffDate.setText(": "+mediumDateFormat.format(datAjd));
+        Entreprise ent = new Entreprise();
+        try {
+            ent.mAJDate(ent, datAjd);
+        } catch (IOException ex) {
+            Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -72,6 +85,9 @@ public class Accueil extends javax.swing.JFrame {
         FaireFormation = new javax.swing.JButton();
         TAffForm = new javax.swing.JLabel();
         AffForm = new javax.swing.JButton();
+        TAffDate = new javax.swing.JLabel();
+        ModifDate = new javax.swing.JButton();
+        AffDate = new javax.swing.JLabel();
         PanelAffichage = new javax.swing.JPanel();
         ListeXXX = new javax.swing.JLabel();
         RetourPAffichage = new javax.swing.JButton();
@@ -339,6 +355,19 @@ public class Accueil extends javax.swing.JFrame {
             }
         });
 
+        TAffDate.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        TAffDate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TAffDate.setText("La date de l'entreprise");
+
+        ModifDate.setText("Changer");
+        ModifDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ModifDateActionPerformed(evt);
+            }
+        });
+
+        AffDate.setText(" ");
+
         javax.swing.GroupLayout PanelAccueilLayout = new javax.swing.GroupLayout(PanelAccueil);
         PanelAccueil.setLayout(PanelAccueilLayout);
         PanelAccueilLayout.setHorizontalGroup(
@@ -353,7 +382,8 @@ public class Accueil extends javax.swing.JFrame {
                         .addGroup(PanelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(TFormation, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(TAffForm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(TCreerMission, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(TCreerMission, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(TAffDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(PanelAccueilLayout.createSequentialGroup()
                         .addGroup(PanelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(PanelAccueilLayout.createSequentialGroup()
@@ -370,13 +400,18 @@ public class Accueil extends javax.swing.JFrame {
                                 .addComponent(AffForm, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(PanelAccueilLayout.createSequentialGroup()
                                 .addGap(460, 460, 460)
-                                .addComponent(CreerMission, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(CreerMission, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(PanelAccueilLayout.createSequentialGroup()
+                                .addGap(397, 397, 397)
+                                .addComponent(FaireFormation, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(PanelAccueilLayout.createSequentialGroup()
-                .addGap(397, 397, 397)
-                .addComponent(FaireFormation, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(399, Short.MAX_VALUE))
+                .addGap(491, 491, 491)
+                .addComponent(ModifDate)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(AffDate, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(355, Short.MAX_VALUE))
         );
         PanelAccueilLayout.setVerticalGroup(
             PanelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -405,7 +440,13 @@ public class Accueil extends javax.swing.JFrame {
                 .addComponent(TFormation)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(FaireFormation)
-                .addContainerGap(284, Short.MAX_VALUE))
+                .addGap(41, 41, 41)
+                .addComponent(TAffDate)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(PanelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ModifDate)
+                    .addComponent(AffDate))
+                .addContainerGap(187, Short.MAX_VALUE))
         );
 
         PanelAffichage.setVisible(false);
@@ -445,15 +486,18 @@ public class Accueil extends javax.swing.JFrame {
         PanelAffichageLayout.setHorizontalGroup(
             PanelAffichageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(ListeXXX, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPane3)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelAffichageLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(RetourPAffichage)
-                .addContainerGap())
             .addGroup(PanelAffichageLayout.createSequentialGroup()
                 .addGap(482, 482, 482)
                 .addComponent(Enregistrer)
                 .addContainerGap(494, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelAffichageLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(PanelAffichageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelAffichageLayout.createSequentialGroup()
+                        .addGap(0, 9, Short.MAX_VALUE)
+                        .addComponent(RetourPAffichage))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
         );
         PanelAffichageLayout.setVerticalGroup(
             PanelAffichageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1071,6 +1115,43 @@ public class Accueil extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_AffFormMouseClicked
 
+    private void ModifDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModifDateActionPerformed
+        // TODO add your handling code here:
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				//Creation du calendrier
+				JCalendar c = new JCalendar();
+ 
+				JDialog d = new JDialog(); // type de fenetre
+				d.setTitle("Choisir une date");
+				d.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
+				d.add(c);
+				d.pack();
+				d.setVisible(true);
+ 
+				Date date = c.getCalendar().getTime(); // Recuperation de la Date sous le bon format
+                                //Sat Feb 24 00:00:00 CET 2018
+				//Affichage !:
+				Locale l = Locale.getDefault();//Le pays pour avoir la bonne date
+				DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL, l);
+                                DateFormat mediumDateFormat = DateFormat.getDateTimeInstance(DateFormat.MEDIUM,DateFormat.MEDIUM);
+                                AffDate.setText(": "+mediumDateFormat.format(date));
+                                
+                                Entreprise ent;
+                                try {
+                                ent = new Entreprise();
+                                ent.mAJDate(ent,date);
+                                } catch (FileNotFoundException ex) {
+                                Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
+                                } catch (IOException ex) {
+                                Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+			}
+		});        
+        
+    }//GEN-LAST:event_ModifDateActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1114,6 +1195,7 @@ public class Accueil extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AffComp;
+    private javax.swing.JLabel AffDate;
     private javax.swing.JButton AffEmploye;
     private javax.swing.JButton AffForm;
     private javax.swing.JButton AffMission;
@@ -1133,6 +1215,7 @@ public class Accueil extends javax.swing.JFrame {
     private javax.swing.JTextField JTNomForm;
     private javax.swing.JTextField JTNomMission;
     private javax.swing.JLabel ListeXXX;
+    private javax.swing.JButton ModifDate;
     private javax.swing.JPanel PanelAccueil;
     private javax.swing.JPanel PanelAffichage;
     private javax.swing.JPanel PanelCreerMission;
@@ -1143,6 +1226,7 @@ public class Accueil extends javax.swing.JFrame {
     private javax.swing.JButton RetourPFormation;
     private javax.swing.JPanel SPanelFaireFormation;
     private javax.swing.JLabel TAffComp;
+    private javax.swing.JLabel TAffDate;
     private javax.swing.JLabel TAffEMploye;
     private javax.swing.JLabel TAffForm;
     private javax.swing.JLabel TAffMission;

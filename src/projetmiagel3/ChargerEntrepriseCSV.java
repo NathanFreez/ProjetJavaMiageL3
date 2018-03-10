@@ -282,5 +282,28 @@ public abstract class ChargerEntrepriseCSV implements IFichier{
         }
         writer.close();
     }
+    
+    public void sauvegardeListeComp(int id, String compAdd) throws IOException{
+        int check=0;
+        FileWriter writer = new FileWriter(System.getProperty("user.dir") + "\\src\\projetmiagel3\\competences_personnel.csv");        
+        writer.write("Employe;Liste Competences \n");
+        for(Employe e : listEmp){
+            int memoId = e.getId();
+            writer.write(memoId+";");
+            for(String s : e.getListeComp()){
+                if(s.equals(compAdd)){
+                    check=1;
+                }
+                if(!s.equals(" ")){
+                writer.write(s+";");}
+                
+            }
+            if(e.getId()==id && check ==0){
+                    writer.write(compAdd+";");
+            }
+            writer.write("\n");
+        }
+        writer.close();
+    }
 
 }
