@@ -558,7 +558,7 @@ public class Accueil extends javax.swing.JFrame {
         TSelComp1.setText("Selectionner pour chaque compétence, le nombre d'employé necessaire : ");
 
         TSelComp2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        TSelComp2.setText("(Laisser 0 si la missio n'a pas besoin de la compétence)");
+        TSelComp2.setText("(Laisser 0 si la mission n'a pas besoin de la compétence)");
         TSelComp2.setAlignmentY(2.0F);
 
         EnrMission.setText("Créer");
