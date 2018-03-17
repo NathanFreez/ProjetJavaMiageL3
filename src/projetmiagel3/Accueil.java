@@ -57,21 +57,6 @@ public class Accueil extends javax.swing.JFrame {
 
         jLabel3 = new javax.swing.JLabel();
         PanelPrincipal = new javax.swing.JPanel();
-        PanelFaireFormation = new javax.swing.JPanel();
-        TEnvEmpForm = new javax.swing.JLabel();
-        TIdForm = new javax.swing.JLabel();
-        JTIdForm = new javax.swing.JTextField();
-        TNomForm = new javax.swing.JLabel();
-        JTNomForm = new javax.swing.JTextField();
-        TDateForm = new javax.swing.JLabel();
-        JDDateForm = new com.toedter.calendar.JDateChooser();
-        SPanelFaireFormation = new javax.swing.JPanel();
-        CBEmpDispo = new javax.swing.JComboBox<>();
-        CBCompAcq = new javax.swing.JComboBox<>();
-        TEmpDispo = new javax.swing.JLabel();
-        TCompAcq = new javax.swing.JLabel();
-        EnvFormation = new javax.swing.JButton();
-        RetourPFormation = new javax.swing.JButton();
         PanelAccueil = new javax.swing.JPanel();
         TAffEMploye = new javax.swing.JLabel();
         AffEmploye = new javax.swing.JButton();
@@ -88,6 +73,23 @@ public class Accueil extends javax.swing.JFrame {
         TAffDate = new javax.swing.JLabel();
         ModifDate = new javax.swing.JButton();
         AffDate = new javax.swing.JLabel();
+        TFormation1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        PanelFaireFormation = new javax.swing.JPanel();
+        TEnvEmpForm = new javax.swing.JLabel();
+        TIdForm = new javax.swing.JLabel();
+        JTIdForm = new javax.swing.JTextField();
+        TNomForm = new javax.swing.JLabel();
+        JTNomForm = new javax.swing.JTextField();
+        TDateForm = new javax.swing.JLabel();
+        JDDateForm = new com.toedter.calendar.JDateChooser();
+        SPanelFaireFormation = new javax.swing.JPanel();
+        CBEmpDispo = new javax.swing.JComboBox<>();
+        CBCompAcq = new javax.swing.JComboBox<>();
+        TEmpDispo = new javax.swing.JLabel();
+        TCompAcq = new javax.swing.JLabel();
+        EnvFormation = new javax.swing.JButton();
+        RetourPFormation = new javax.swing.JButton();
         PanelAffichage = new javax.swing.JPanel();
         ListeXXX = new javax.swing.JLabel();
         RetourPAffichage = new javax.swing.JButton();
@@ -113,12 +115,218 @@ public class Accueil extends javax.swing.JFrame {
         TSelComp2 = new javax.swing.JLabel();
         EnrMission = new javax.swing.JButton();
         TitrePrincipal = new javax.swing.JLabel();
+        PanelAffecterEmploye = new javax.swing.JPanel();
+        RetourPAffectation = new javax.swing.JButton();
 
         jLabel3.setText("jLabel3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         PanelPrincipal.setBackground(new java.awt.Color(255, 255, 255));
+
+        TAffEMploye.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        TAffEMploye.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TAffEMploye.setText("Afficher la liste des Employés");
+
+        AffEmploye.setText("Liste Employé");
+        AffEmploye.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                AffEmployeMouseClicked(evt);
+            }
+        });
+        AffEmploye.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AffEmployeActionPerformed(evt);
+            }
+        });
+
+        TAffComp.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        TAffComp.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TAffComp.setText("Afficher la liste des Missions");
+
+        AffComp.setText("Liste Competence");
+        AffComp.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                AffCompMouseClicked(evt);
+            }
+        });
+
+        TAffMission.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        TAffMission.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TAffMission.setText("Afficher la liste des Compétences");
+
+        AffMission.setText("Liste Mission");
+        AffMission.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                AffMissionMouseClicked(evt);
+            }
+        });
+        AffMission.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AffMissionActionPerformed(evt);
+            }
+        });
+
+        TCreerMission.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        TCreerMission.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TCreerMission.setText("Créer une Mission");
+
+        CreerMission.setText("Créer");
+        CreerMission.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CreerMissionMouseClicked(evt);
+            }
+        });
+        CreerMission.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CreerMissionActionPerformed(evt);
+            }
+        });
+
+        TFormation.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        TFormation.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TFormation.setText("Affecter des employés à une mission");
+
+        FaireFormation.setText("Formation");
+        FaireFormation.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                FaireFormationMouseClicked(evt);
+            }
+        });
+        FaireFormation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FaireFormationActionPerformed(evt);
+            }
+        });
+
+        TAffForm.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        TAffForm.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TAffForm.setText("Afficher la liste des Formations");
+
+        AffForm.setText("Liste Formation");
+        AffForm.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                AffFormMouseClicked(evt);
+            }
+        });
+
+        TAffDate.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        TAffDate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TAffDate.setText("La date de l'entreprise");
+
+        ModifDate.setText("Changer");
+        ModifDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ModifDateActionPerformed(evt);
+            }
+        });
+
+        AffDate.setText(" ");
+
+        TFormation1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        TFormation1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TFormation1.setText("Envoyer un employé en formation");
+
+        jButton1.setText("Affecter");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout PanelAccueilLayout = new javax.swing.GroupLayout(PanelAccueil);
+        PanelAccueil.setLayout(PanelAccueilLayout);
+        PanelAccueilLayout.setHorizontalGroup(
+            PanelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(TAffEMploye, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(TAffMission, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(TAffComp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(PanelAccueilLayout.createSequentialGroup()
+                .addGap(387, 387, 387)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(PanelAccueilLayout.createSequentialGroup()
+                .addGroup(PanelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelAccueilLayout.createSequentialGroup()
+                        .addGroup(PanelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(PanelAccueilLayout.createSequentialGroup()
+                                .addGap(415, 415, 415)
+                                .addComponent(AffEmploye, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(PanelAccueilLayout.createSequentialGroup()
+                                .addGap(399, 399, 399)
+                                .addComponent(AffComp, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(PanelAccueilLayout.createSequentialGroup()
+                                .addGap(419, 419, 419)
+                                .addComponent(AffMission, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(PanelAccueilLayout.createSequentialGroup()
+                                .addGap(408, 408, 408)
+                                .addComponent(AffForm, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(PanelAccueilLayout.createSequentialGroup()
+                                .addGap(460, 460, 460)
+                                .addComponent(CreerMission, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(PanelAccueilLayout.createSequentialGroup()
+                                .addGap(397, 397, 397)
+                                .addComponent(FaireFormation, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(PanelAccueilLayout.createSequentialGroup()
+                                .addGap(491, 491, 491)
+                                .addComponent(ModifDate)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(AffDate, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 345, Short.MAX_VALUE))
+                    .addGroup(PanelAccueilLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(PanelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(TFormation, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(TAffForm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(TCreerMission, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(TAffDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(TFormation1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
+        );
+        PanelAccueilLayout.setVerticalGroup(
+            PanelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelAccueilLayout.createSequentialGroup()
+                .addGap(47, 47, 47)
+                .addComponent(TAffEMploye)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(AffEmploye)
+                .addGap(32, 32, 32)
+                .addComponent(TAffMission)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(AffComp)
+                .addGap(38, 38, 38)
+                .addComponent(TAffComp)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(AffMission)
+                .addGap(38, 38, 38)
+                .addComponent(TAffForm)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(AffForm)
+                .addGap(38, 38, 38)
+                .addComponent(TCreerMission)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(CreerMission)
+                .addGap(47, 47, 47)
+                .addComponent(TFormation1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(FaireFormation)
+                .addGap(41, 41, 41)
+                .addComponent(TAffDate)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(PanelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ModifDate)
+                    .addComponent(AffDate))
+                .addGap(31, 31, 31)
+                .addComponent(TFormation)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1)
+                .addContainerGap(100, Short.MAX_VALUE))
+        );
 
         PanelFaireFormation.setVisible(false);
         PanelFaireFormation.setPreferredSize(new java.awt.Dimension(670, 835));
@@ -269,186 +477,6 @@ public class Accueil extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
 
-        TAffEMploye.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        TAffEMploye.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        TAffEMploye.setText("Afficher la liste des Employés");
-
-        AffEmploye.setText("Liste Employé");
-        AffEmploye.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                AffEmployeMouseClicked(evt);
-            }
-        });
-        AffEmploye.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AffEmployeActionPerformed(evt);
-            }
-        });
-
-        TAffComp.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        TAffComp.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        TAffComp.setText("Afficher la liste des Missions");
-
-        AffComp.setText("Liste Competence");
-        AffComp.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                AffCompMouseClicked(evt);
-            }
-        });
-
-        TAffMission.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        TAffMission.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        TAffMission.setText("Afficher la liste des Compétences");
-
-        AffMission.setText("Liste Mission");
-        AffMission.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                AffMissionMouseClicked(evt);
-            }
-        });
-        AffMission.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AffMissionActionPerformed(evt);
-            }
-        });
-
-        TCreerMission.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        TCreerMission.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        TCreerMission.setText("Créer une Mission");
-
-        CreerMission.setText("Créer");
-        CreerMission.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                CreerMissionMouseClicked(evt);
-            }
-        });
-        CreerMission.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CreerMissionActionPerformed(evt);
-            }
-        });
-
-        TFormation.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        TFormation.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        TFormation.setText("Envoyer un employé en formation");
-
-        FaireFormation.setText("Formation");
-        FaireFormation.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                FaireFormationMouseClicked(evt);
-            }
-        });
-        FaireFormation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FaireFormationActionPerformed(evt);
-            }
-        });
-
-        TAffForm.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        TAffForm.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        TAffForm.setText("Afficher la liste des Formations");
-
-        AffForm.setText("Liste Formation");
-        AffForm.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                AffFormMouseClicked(evt);
-            }
-        });
-
-        TAffDate.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        TAffDate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        TAffDate.setText("La date de l'entreprise");
-
-        ModifDate.setText("Changer");
-        ModifDate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ModifDateActionPerformed(evt);
-            }
-        });
-
-        AffDate.setText(" ");
-
-        javax.swing.GroupLayout PanelAccueilLayout = new javax.swing.GroupLayout(PanelAccueil);
-        PanelAccueil.setLayout(PanelAccueilLayout);
-        PanelAccueilLayout.setHorizontalGroup(
-            PanelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(TAffEMploye, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(TAffMission, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(TAffComp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(PanelAccueilLayout.createSequentialGroup()
-                .addGroup(PanelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelAccueilLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(PanelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(TFormation, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(TAffForm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(TCreerMission, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(TAffDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(PanelAccueilLayout.createSequentialGroup()
-                        .addGroup(PanelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(PanelAccueilLayout.createSequentialGroup()
-                                .addGap(415, 415, 415)
-                                .addComponent(AffEmploye, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(PanelAccueilLayout.createSequentialGroup()
-                                .addGap(399, 399, 399)
-                                .addComponent(AffComp, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(PanelAccueilLayout.createSequentialGroup()
-                                .addGap(419, 419, 419)
-                                .addComponent(AffMission, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(PanelAccueilLayout.createSequentialGroup()
-                                .addGap(408, 408, 408)
-                                .addComponent(AffForm, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(PanelAccueilLayout.createSequentialGroup()
-                                .addGap(460, 460, 460)
-                                .addComponent(CreerMission, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(PanelAccueilLayout.createSequentialGroup()
-                                .addGap(397, 397, 397)
-                                .addComponent(FaireFormation, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(PanelAccueilLayout.createSequentialGroup()
-                .addGap(491, 491, 491)
-                .addComponent(ModifDate)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(AffDate, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(355, Short.MAX_VALUE))
-        );
-        PanelAccueilLayout.setVerticalGroup(
-            PanelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelAccueilLayout.createSequentialGroup()
-                .addGap(47, 47, 47)
-                .addComponent(TAffEMploye)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(AffEmploye)
-                .addGap(32, 32, 32)
-                .addComponent(TAffMission)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(AffComp)
-                .addGap(38, 38, 38)
-                .addComponent(TAffComp)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(AffMission)
-                .addGap(38, 38, 38)
-                .addComponent(TAffForm)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(AffForm)
-                .addGap(38, 38, 38)
-                .addComponent(TCreerMission)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(CreerMission)
-                .addGap(42, 42, 42)
-                .addComponent(TFormation)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(FaireFormation)
-                .addGap(41, 41, 41)
-                .addComponent(TAffDate)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(PanelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ModifDate)
-                    .addComponent(AffDate))
-                .addContainerGap(187, Short.MAX_VALUE))
-        );
-
         PanelAffichage.setVisible(false);
 
         ListeXXX.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -486,17 +514,20 @@ public class Accueil extends javax.swing.JFrame {
         PanelAffichageLayout.setHorizontalGroup(
             PanelAffichageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(ListeXXX, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(PanelAffichageLayout.createSequentialGroup()
-                .addGap(482, 482, 482)
-                .addComponent(Enregistrer)
-                .addContainerGap(494, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelAffichageLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(PanelAffichageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelAffichageLayout.createSequentialGroup()
-                        .addGap(0, 9, Short.MAX_VALUE)
+                        .addGap(0, 996, Short.MAX_VALUE)
                         .addComponent(RetourPAffichage))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addGroup(PanelAffichageLayout.createSequentialGroup()
+                        .addGap(153, 153, 153)
+                        .addGroup(PanelAffichageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(PanelAffichageLayout.createSequentialGroup()
+                                .addGap(325, 325, 325)
+                                .addComponent(Enregistrer)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 498, Short.MAX_VALUE))
+                            .addComponent(jScrollPane3))))
                 .addContainerGap())
         );
         PanelAffichageLayout.setVerticalGroup(
@@ -664,6 +695,37 @@ public class Accueil extends javax.swing.JFrame {
         TitrePrincipal.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         TitrePrincipal.setText("Gestion de l'entreprise");
 
+        PanelAffecterEmploye.setVisible(false);
+
+        RetourPAffectation.setText("Retour");
+        RetourPAffectation.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                RetourPAffectationMouseClicked(evt);
+            }
+        });
+        RetourPAffectation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RetourPAffectationActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout PanelAffecterEmployeLayout = new javax.swing.GroupLayout(PanelAffecterEmploye);
+        PanelAffecterEmploye.setLayout(PanelAffecterEmployeLayout);
+        PanelAffecterEmployeLayout.setHorizontalGroup(
+            PanelAffecterEmployeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelAffecterEmployeLayout.createSequentialGroup()
+                .addContainerGap(966, Short.MAX_VALUE)
+                .addComponent(RetourPAffectation)
+                .addContainerGap())
+        );
+        PanelAffecterEmployeLayout.setVerticalGroup(
+            PanelAffecterEmployeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelAffecterEmployeLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(RetourPAffectation)
+                .addContainerGap(683, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout PanelPrincipalLayout = new javax.swing.GroupLayout(PanelPrincipal);
         PanelPrincipal.setLayout(PanelPrincipalLayout);
         PanelPrincipalLayout.setHorizontalGroup(
@@ -682,6 +744,11 @@ public class Accueil extends javax.swing.JFrame {
                     .addContainerGap()))
             .addGroup(PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(PanelFaireFormation, javax.swing.GroupLayout.DEFAULT_SIZE, 1061, Short.MAX_VALUE))
+            .addGroup(PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(PanelPrincipalLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(PanelAffecterEmploye, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         PanelPrincipalLayout.setVerticalGroup(
             PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -703,6 +770,11 @@ public class Accueil extends javax.swing.JFrame {
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelPrincipalLayout.createSequentialGroup()
                     .addGap(0, 60, Short.MAX_VALUE)
                     .addComponent(PanelFaireFormation, javax.swing.GroupLayout.PREFERRED_SIZE, 832, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(PanelPrincipalLayout.createSequentialGroup()
+                    .addGap(19, 19, 19)
+                    .addComponent(PanelAffecterEmploye, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(156, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1152,6 +1224,26 @@ public class Accueil extends javax.swing.JFrame {
         
     }//GEN-LAST:event_ModifDateActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+        PanelAccueil.setVisible(false);
+        PanelAffecterEmploye.setVisible(true);
+    }//GEN-LAST:event_jButton1MouseClicked
+
+    private void RetourPAffectationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RetourPAffectationMouseClicked
+        // TODO add your handling code here:
+        PanelAffecterEmploye.setVisible(false);
+        PanelAccueil.setVisible(true);
+    }//GEN-LAST:event_RetourPAffectationMouseClicked
+
+    private void RetourPAffectationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RetourPAffectationActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RetourPAffectationActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1217,10 +1309,12 @@ public class Accueil extends javax.swing.JFrame {
     private javax.swing.JLabel ListeXXX;
     private javax.swing.JButton ModifDate;
     private javax.swing.JPanel PanelAccueil;
+    private javax.swing.JPanel PanelAffecterEmploye;
     private javax.swing.JPanel PanelAffichage;
     private javax.swing.JPanel PanelCreerMission;
     private javax.swing.JPanel PanelFaireFormation;
     private javax.swing.JPanel PanelPrincipal;
+    private javax.swing.JButton RetourPAffectation;
     private javax.swing.JButton RetourPAffichage;
     private javax.swing.JButton RetourPCreerMission;
     private javax.swing.JButton RetourPFormation;
@@ -1240,6 +1334,7 @@ public class Accueil extends javax.swing.JFrame {
     private javax.swing.JLabel TEmpDispo;
     private javax.swing.JLabel TEnvEmpForm;
     private javax.swing.JLabel TFormation;
+    private javax.swing.JLabel TFormation1;
     private javax.swing.JLabel TIdForm;
     private javax.swing.JLabel TIdMission;
     private javax.swing.JLabel TNomForm;
@@ -1247,6 +1342,7 @@ public class Accueil extends javax.swing.JFrame {
     private javax.swing.JLabel TSelComp1;
     private javax.swing.JLabel TSelComp2;
     private javax.swing.JLabel TitrePrincipal;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
