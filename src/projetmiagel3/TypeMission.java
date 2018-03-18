@@ -6,7 +6,7 @@
 package projetmiagel3;
 
 /**
- *
+ * Une mission est soit en preparation, soit planifie, soit encours, soit termine
  * @author nathan
  */
 public enum TypeMission {

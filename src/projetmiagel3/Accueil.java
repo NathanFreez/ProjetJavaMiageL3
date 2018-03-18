@@ -30,15 +30,18 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Accueil extends javax.swing.JFrame {
 
+    private Entreprise ent;
+    
     /**
      * Creates new form Accueil
+     * @throws java.io.FileNotFoundException
      */
     public Accueil() throws FileNotFoundException {
         initComponents();
         Date datAjd = new Date();
         DateFormat mediumDateFormat = DateFormat.getDateTimeInstance(DateFormat.MEDIUM,DateFormat.MEDIUM);
         AffDate.setText(": "+mediumDateFormat.format(datAjd));
-        Entreprise ent = new Entreprise();
+        ent = new Entreprise();
         try {
             ent.mAJDate(ent, datAjd);
         } catch (IOException ex) {
@@ -795,66 +798,61 @@ public class Accueil extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_AffMissionActionPerformed
 
+    /**
+     * Defini la structure de la jTable pour afficher les employe
+     * @param evt 
+     */
     private void AffEmployeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AffEmployeMouseClicked
         // TODO add your handling code here:
-        Entreprise ent;
-        try {
-            ent = new Entreprise();
-            int i = 0;
-            
-            jTableAffichage.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [ent.getListEmp().size()][4],
-                new String [] {
-                    "Nom", "Prenom", "DateE", "Competence"
-                }
-            ));
-            
-            for(Employe e : ent.getListEmp()){
-                jTableAffichage.setValueAt(e.getNom(), i, 0);
-                jTableAffichage.setValueAt(e.getPrenom(), i, 1);
-                jTableAffichage.setValueAt(e.getDateE(), i, 2);
-                jTableAffichage.setValueAt(e.getListeComp(), i, 3);
-                i++;
+        int i = 0;
+
+        jTableAffichage.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [ent.getListEmp().size()][4],
+            new String [] {
+                "Nom", "Prenom", "DateE", "Competence"
             }
-            PanelAccueil.setVisible(false);
-            PanelAffichage.setVisible(true);
-            ListeXXX.setText("Liste des Employés");
-            
-            jTableAffichage.setVisible(true);
-            
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
+        ));
+
+        for(Employe e : ent.getListEmp()){
+            jTableAffichage.setValueAt(e.getNom(), i, 0);
+            jTableAffichage.setValueAt(e.getPrenom(), i, 1);
+            jTableAffichage.setValueAt(e.getDateE(), i, 2);
+            jTableAffichage.setValueAt(e.getListeComp(), i, 3);
+            i++;
         }
+        PanelAccueil.setVisible(false);
+        PanelAffichage.setVisible(true);
+        ListeXXX.setText("Liste des Employés");
+
+        jTableAffichage.setVisible(true);
+            
     }//GEN-LAST:event_AffEmployeMouseClicked
 
+    /**
+     * Defini la structure de la jTable pour afficher les competence
+     * @param evt 
+     */
     private void AffCompMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AffCompMouseClicked
         // TODO add your handling code here:
-        Entreprise ent;
-        try {
-            ent = new Entreprise();
-            int i = 0;
-            
-            jTableAffichage.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [ent.getListComp().size()][2],
-                new String [] {
-                    "Id", "Fr", "Eng"
-                }
-            ));
-            
-            for(Competence c : ent.getListComp()){
-                jTableAffichage.setValueAt(c.getId(), i, 0);
-                jTableAffichage.setValueAt(c.getLibFr(), i, 1);
-                jTableAffichage.setValueAt(c.getLibEng(), i, 2);
-                i++;
+        int i = 0;
+
+        jTableAffichage.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [ent.getListComp().size()][2],
+            new String [] {
+                "Id", "Fr", "Eng"
             }
-            PanelAccueil.setVisible(false);
-            PanelAffichage.setVisible(true);
-            ListeXXX.setText("Liste des Competences");
-            jTableAffichage.setVisible(true);
-            
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
+        ));
+
+        for(Competence c : ent.getListComp()){
+            jTableAffichage.setValueAt(c.getId(), i, 0);
+            jTableAffichage.setValueAt(c.getLibFr(), i, 1);
+            jTableAffichage.setValueAt(c.getLibEng(), i, 2);
+            i++;
         }
+        PanelAccueil.setVisible(false);
+        PanelAffichage.setVisible(true);
+        ListeXXX.setText("Liste des Competences");
+        jTableAffichage.setVisible(true);
     }//GEN-LAST:event_AffCompMouseClicked
 
     private void AffEmployeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AffEmployeActionPerformed
@@ -865,44 +863,41 @@ public class Accueil extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_RetourPAffichageActionPerformed
 
+    /**
+     * Defini la structure de la jTable pour afficher les mission
+     * @param evt 
+     */
     private void AffMissionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AffMissionMouseClicked
         // TODO add your handling code here:               
-        Entreprise ent;
-        try {
-            ent = new Entreprise();
-            int i = 0;
-            
-            jTableAffichage.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [ent.getListMis().size()][7],
-                new String [] {
-                    "Id", "Nom", "Type", "Date de début", "Duree (en jours)", "Employes affectés", "Competence : employe necessaire"
-                }
-            ));
-            
-            for(Mission m : ent.getListMis()){
-                jTableAffichage.setValueAt(m.getId(), i, 0);
-                jTableAffichage.setValueAt(m.getNom(), i, 1);
-                jTableAffichage.setValueAt(m.getType(), i, 2);
-                jTableAffichage.setValueAt(m.getDateD(), i, 3);
-                jTableAffichage.setValueAt(m.getDuree(), i, 4);
-                jTableAffichage.setValueAt(m.getNbTotalEmp(), i, 5);
-                String mapC = "";
-                for(Map.Entry<Competence, Integer> ci : m.getMapC().entrySet()){
-                    mapC += "{" + ci.getKey().getId() + "} : " + ci.getValue() + ", ";
-                }
-                jTableAffichage.setValueAt(mapC, i, 6);
+        int i = 0;
+
+        jTableAffichage.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [ent.getListMis().size()][7],
+            new String [] {
+                "Id", "Nom", "Type", "Date de début", "Duree (en jours)", "Employes affectés", "Competence : employe necessaire"
             }
-            
-            PanelAccueil.setVisible(false);
-            PanelAffichage.setVisible(true);
-            Enregistrer.setVisible(false);
-            ListeXXX.setText("Liste des Missions");
-            
-            jTableAffichage.setVisible(true);
-            
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
+        ));
+
+        for(Mission m : ent.getListMis()){
+            jTableAffichage.setValueAt(m.getId(), i, 0);
+            jTableAffichage.setValueAt(m.getNom(), i, 1);
+            jTableAffichage.setValueAt(m.getType(), i, 2);
+            jTableAffichage.setValueAt(m.getDateD(), i, 3);
+            jTableAffichage.setValueAt(m.getDuree(), i, 4);
+            jTableAffichage.setValueAt(m.getNbTotalEmp(), i, 5);
+            String mapC = "";
+            for(Map.Entry<Competence, Integer> ci : m.getMapC().entrySet()){
+                mapC += "{" + ci.getKey().getId() + "} : " + ci.getValue() + ", ";
+            }
+            jTableAffichage.setValueAt(mapC, i, 6);
         }
+
+        PanelAccueil.setVisible(false);
+        PanelAffichage.setVisible(true);
+        Enregistrer.setVisible(false);
+        ListeXXX.setText("Liste des Missions");
+
+        jTableAffichage.setVisible(true);
     }//GEN-LAST:event_AffMissionMouseClicked
 
     private void RetourPAffichageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RetourPAffichageMouseClicked
@@ -912,10 +907,13 @@ public class Accueil extends javax.swing.JFrame {
         PanelAccueil.setVisible(true);
     }//GEN-LAST:event_RetourPAffichageMouseClicked
 
+    /**
+     * Enregistre les modification faite dans la jTable des employe ou des competences
+     * @param evt 
+     */
     private void EnregistrerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EnregistrerMouseClicked
         try {
             // TODO add your handling code here:
-            Entreprise ent = new Entreprise();
             switch(ListeXXX.getText()){
                 case "Liste des Employés":
                     ArrayList<Employe> listE = new ArrayList<Employe>();
@@ -965,44 +963,43 @@ public class Accueil extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_RetourPCreerMissionActionPerformed
 
+    /**
+     * Parametre et affiche la fenetre pour créer une mission
+     * @param evt 
+     */
     private void CreerMissionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CreerMissionMouseClicked
         // TODO add your handling code here:      
-        Entreprise ent;
-        try {
-            ent = new Entreprise();
-            int i = 0;
-            
-            jTableCreerMission.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [ent.getListComp().size()][2],
-                new String [] {
-                    "Competence", "Nombre d'employé",
-                }
-            ));
-            
-            for(Competence c : ent.getListComp()){
-                jTableCreerMission.setValueAt(c, i, 0);
-                jTableCreerMission.setValueAt(0, i, 1);
-                i++;
+        int i = 0;
+
+        jTableCreerMission.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [ent.getListComp().size()][2],
+            new String [] {
+                "Competence", "Nombre d'employé",
             }
-            PanelAccueil.setVisible(false);
-            PanelCreerMission.setVisible(true);
-            
-            jTableCreerMission.setVisible(true);
-            
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
+        ));
+
+        for(Competence c : ent.getListComp()){
+            jTableCreerMission.setValueAt(c, i, 0);
+            jTableCreerMission.setValueAt(0, i, 1);
+            i++;
         }
-        
+        PanelAccueil.setVisible(false);
+        PanelCreerMission.setVisible(true);
+
+        jTableCreerMission.setVisible(true);
     }//GEN-LAST:event_CreerMissionMouseClicked
 
     private void EnrMissionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnrMissionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_EnrMissionActionPerformed
 
+    /**
+     * Enregistre une mission avec ls informations rentrées
+     * @param evt 
+     */
     private void EnrMissionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EnrMissionMouseClicked
         try {
             // TODO add your handling code here:
-            Entreprise ent = new Entreprise();
             SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH);
             Date d = sdf.parse(JDDateDMission.getDate().toString());
             HashMap<Competence, Integer> mapC = new HashMap<Competence, Integer>();
@@ -1060,12 +1057,15 @@ public class Accueil extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_RetourPFormationActionPerformed
 
+    /**
+     * Parametre et affiche les composatns de la fenetre pour créer une formation quand la date de début de la foramtion est renseignée
+     * @param evt 
+     */
     private void JDDateFormPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_JDDateFormPropertyChange
         // TODO add your handling code here:
         SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH);
         if(evt.getPropertyName().equals("date") && evt.getOldValue()==null && evt.getNewValue()!=null){
             try {
-                Entreprise ent = new Entreprise();
                 ArrayList<Employe> listTmpEmp = ent.getListEmp();
                 ArrayList<Mission> listTmpMis = ent.getListMis();
                 ArrayList<Formation> listTmpForm = ent.getListForm();
@@ -1100,18 +1100,19 @@ public class Accueil extends javax.swing.JFrame {
                 }
                 
                 SPanelFaireFormation.setVisible(true);
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ParseException ex) {
                 Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_JDDateFormPropertyChange
 
+    /**
+     * Permet d'envoyé un employé en formation avec les informations renseignée (la durée d'un formation est de 10jours)
+     * @param evt 
+     */
     private void EnvFormationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EnvFormationMouseClicked
         // TODO add your handling code here:
         try {
-            Entreprise ent = new Entreprise();
             SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH);
             Competence cForm = new Competence();
             Employe[] eForm = new Employe[1];
@@ -1151,40 +1152,37 @@ public class Accueil extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_JTIdFormActionPerformed
 
+    /**
+     * Defini la structure de la jTable pour afficher les formations
+     * @param evt 
+     */
     private void AffFormMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AffFormMouseClicked
         // TODO add your handling code here:
-        Entreprise ent;
-        try {
-            ent = new Entreprise();
-            int i = 0;
-            
-            jTableAffichage.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [ent.getListForm().size()][7],
-                new String [] {
-                    "Id", "Nom", "Type", "Date de début", "Duree (en jours)", "Employe", "Competence a acquérir"
-                }
-            ));
-            
-            for(Formation f : ent.getListForm()){
-                jTableAffichage.setValueAt(f.getId(), i, 0);
-                jTableAffichage.setValueAt(f.getNom(), i, 1);
-                jTableAffichage.setValueAt(f.getType(), i, 2);
-                jTableAffichage.setValueAt(f.getDateD(), i, 3);
-                jTableAffichage.setValueAt(f.getDuree(), i, 4);
-                jTableAffichage.setValueAt(f.getEmp().getId() + " " + f.getEmp().getNom() + " " + f.getEmp().getPrenom(), i, 5);
-                jTableAffichage.setValueAt(f.getComp().getId(), i, 6);
+        int i = 0;
+
+        jTableAffichage.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [ent.getListForm().size()][7],
+            new String [] {
+                "Id", "Nom", "Type", "Date de début", "Duree (en jours)", "Employe", "Competence a acquérir"
             }
-            
-            PanelAccueil.setVisible(false);
-            PanelAffichage.setVisible(true);
-            Enregistrer.setVisible(false);
-            ListeXXX.setText("Liste des Formations");
-            
-            jTableAffichage.setVisible(true);
-            
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
+        ));
+
+        for(Formation f : ent.getListForm()){
+            jTableAffichage.setValueAt(f.getId(), i, 0);
+            jTableAffichage.setValueAt(f.getNom(), i, 1);
+            jTableAffichage.setValueAt(f.getType(), i, 2);
+            jTableAffichage.setValueAt(f.getDateD(), i, 3);
+            jTableAffichage.setValueAt(f.getDuree(), i, 4);
+            jTableAffichage.setValueAt(f.getEmp().getId() + " " + f.getEmp().getNom() + " " + f.getEmp().getPrenom(), i, 5);
+            jTableAffichage.setValueAt(f.getComp().getId(), i, 6);
         }
+
+        PanelAccueil.setVisible(false);
+        PanelAffichage.setVisible(true);
+        Enregistrer.setVisible(false);
+        ListeXXX.setText("Liste des Formations");
+
+        jTableAffichage.setVisible(true);
     }//GEN-LAST:event_AffFormMouseClicked
 
     private void ModifDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModifDateActionPerformed
@@ -1192,32 +1190,30 @@ public class Accueil extends javax.swing.JFrame {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				//Creation du calendrier
-				JCalendar c = new JCalendar();
- 
-				JDialog d = new JDialog(); // type de fenetre
-				d.setTitle("Choisir une date");
-				d.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
-				d.add(c);
-				d.pack();
-				d.setVisible(true);
- 
-				Date date = c.getCalendar().getTime(); // Recuperation de la Date sous le bon format
-                                //Sat Feb 24 00:00:00 CET 2018
-				//Affichage !:
-				Locale l = Locale.getDefault();//Le pays pour avoir la bonne date
-				DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL, l);
-                                DateFormat mediumDateFormat = DateFormat.getDateTimeInstance(DateFormat.MEDIUM,DateFormat.MEDIUM);
-                                AffDate.setText(": "+mediumDateFormat.format(date));
-                                
-                                Entreprise ent;
-                                try {
-                                ent = new Entreprise();
+                            //Creation du calendrier
+                            JCalendar c = new JCalendar();
+
+                            JDialog d = new JDialog(); // type de fenetre
+                            d.setTitle("Choisir une date");
+                            d.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
+                            d.add(c);
+                            d.pack();
+                            d.setVisible(true);
+
+                            Date date = c.getCalendar().getTime(); // Recuperation de la Date sous le bon format
+                            //Sat Feb 24 00:00:00 CET 2018
+                            //Affichage !:
+                            Locale l = Locale.getDefault();//Le pays pour avoir la bonne date
+                            DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL, l);
+                            DateFormat mediumDateFormat = DateFormat.getDateTimeInstance(DateFormat.MEDIUM,DateFormat.MEDIUM);
+                            AffDate.setText(": "+mediumDateFormat.format(date));
+
+                            try {
                                 ent.mAJDate(ent,date);
-                                } catch (FileNotFoundException ex) {
-                                Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
-                                } catch (IOException ex) {
-                                Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
+                            } catch (FileNotFoundException ex) {
+                            Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
+                            } catch (IOException ex) {
+                            Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
                             }
 			}
 		});        
@@ -1244,46 +1240,6 @@ public class Accueil extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_RetourPAffectationActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Accueil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Accueil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Accueil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Accueil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                Accueil a;
-                try {
-                    a = new Accueil();
-                    a.setVisible(true);
-                } catch (FileNotFoundException ex) {
-                    Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AffComp;

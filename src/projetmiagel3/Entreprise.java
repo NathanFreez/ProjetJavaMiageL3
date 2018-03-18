@@ -15,7 +15,7 @@ import java.util.Date;
 import java.util.Map;
 
 /**
- *
+ * Entreprise
  * @author Nathan
  */
 public class Entreprise extends ChargerEntrepriseCSV{
@@ -38,12 +38,22 @@ public class Entreprise extends ChargerEntrepriseCSV{
         chargerCompetenceEtEmployeFormation();
     }
 
+    /**
+     * Permet d'ajouter une mission à la liste des mission de l'entreprise
+     * @param m
+     * @throws IOException
+     */
     public void ajouterMission(Mission m) throws IOException{
         this.listMis.add(m);
         sauvegarderMission(listMis);
         sauvegardeCompetenceMission(listMis);
     }
     
+    /**
+     * Permet d'ajouter une formation à la liste des formation de l'entreprise
+     * @param f
+     * @throws IOException
+     */
     public void ajouterFormation(Formation f) throws IOException{
         this.listForm.add(f);
         sauvegarderFormation(listForm);
@@ -75,11 +85,22 @@ public class Entreprise extends ChargerEntrepriseCSV{
         return listMis;
     }
 
+    /**
+     * Methode qui permet de envoyer la liste des formations de l'entreprise
+     * @return
+     */
     public ArrayList<Formation> getListForm() {
         return listForm;
     }
     
-public void mAJDate(Entreprise ent, Date d) throws FileNotFoundException, IOException{
+    /**
+     *
+     * @param ent
+     * @param d
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
+    public void mAJDate(Entreprise ent, Date d) throws FileNotFoundException, IOException{
         //Mise à jour de l'avancement des mission
         ArrayList majMission = ent.getListMis();
         for(int i = 0; i < majMission.size(); i++){
