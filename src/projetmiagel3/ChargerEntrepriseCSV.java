@@ -87,7 +87,7 @@ public abstract class ChargerEntrepriseCSV implements IFichier{
             System.out.println(e);
         }
     }
-    
+
     public void chargerMission() throws FileNotFoundException{
         String line;
         SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH);
@@ -284,10 +284,12 @@ public abstract class ChargerEntrepriseCSV implements IFichier{
     }
     
     public void sauvegardeListeComp(int id, String compAdd) throws IOException{
+        //Variable pour savoir si la compétence existe déjà
         int check=0;
         FileWriter writer = new FileWriter(System.getProperty("user.dir") + "\\src\\projetmiagel3\\competences_personnel.csv");        
         writer.write("Employe;Liste Competences \n");
         for(Employe e : listEmp){
+            //Variable de recuperation de l'id employe
             int memoId = e.getId();
             writer.write(memoId+";");
             for(String s : e.getListeComp()){
@@ -299,7 +301,8 @@ public abstract class ChargerEntrepriseCSV implements IFichier{
                 
             }
             if(e.getId()==id && check ==0){
-                    writer.write(compAdd+";");
+                //Ajout de la competence de formation
+                writer.write(compAdd+";");
             }
             writer.write("\n");
         }

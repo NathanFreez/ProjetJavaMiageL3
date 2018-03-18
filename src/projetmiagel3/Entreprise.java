@@ -110,6 +110,7 @@ public class Entreprise extends ChargerEntrepriseCSV{
             Date dateDebM = m.getDateD();
             Date dateFinM = new Date();
             dateFinM.setDate(dateFinM.getDate()+m.duree);
+            //Comparaison des intervalles de temps
             if (d.after(dateFinM)){
                 m.setType(TypeMission.termine);
             }
@@ -122,23 +123,24 @@ public class Entreprise extends ChargerEntrepriseCSV{
         }
         sauvegarderMission(majMission);
         
-        //Clarté du code, Variable de Date différente
         //Mise à jour de l'avancement des formations
         ArrayList <Formation> majFormation = ent.getListForm();
         for(int i = 0; i < majFormation.size(); i++){
             //Récupération formation par formation
             Formation f = majFormation.get(i);
-            //Gestion de la date du début et de fin du projet
+            //Gestion de la date du début et de fin de la formation
             Date dateDebF = f.getDateD();
             Date dateFinF = new Date();
             dateFinF.setDate(dateFinF.getDate()+f.duree);
             if (d.after(dateFinF)){
-                //On doit ajouter la compétence à l'employé
+                //Ajout de la compétence Formation à l'employé
                 
                 f.setType(TypeMission.termine);
                 Employe e = f.getEmp();
                 ArrayList<String> test = e.getListeComp();
-                Competence c = f.getComp();                sauvegardeListeComp(e.getId(),c.getId());
+                Competence c = f.getComp();
+                
+                sauvegardeListeComp(e.getId(),c.getId());
             }
             if(d.after(dateDebF) && d.before(dateFinF)){
                 f.setType(TypeMission.encours);

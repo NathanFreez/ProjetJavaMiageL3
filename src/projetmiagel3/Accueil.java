@@ -38,11 +38,16 @@ public class Accueil extends javax.swing.JFrame {
      */
     public Accueil() throws FileNotFoundException {
         initComponents();
+        
+        //Mise à jour de la Date au jour actuel
         Date datAjd = new Date();
+        //Changement du format pour avoir la date souhaitee
         DateFormat mediumDateFormat = DateFormat.getDateTimeInstance(DateFormat.MEDIUM,DateFormat.MEDIUM);
+        //Mise à jour de l'affichage dans le menu 
         AffDate.setText(": "+mediumDateFormat.format(datAjd));
         ent = new Entreprise();
         try {
+            //Changement des etats dans entreprise
             ent.mAJDate(ent, datAjd);
         } catch (IOException ex) {
             Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
@@ -1200,10 +1205,11 @@ public class Accueil extends javax.swing.JFrame {
                             d.pack();
                             d.setVisible(true);
 
-                            Date date = c.getCalendar().getTime(); // Recuperation de la Date sous le bon format
-                            //Sat Feb 24 00:00:00 CET 2018
-                            //Affichage !:
-                            Locale l = Locale.getDefault();//Le pays pour avoir la bonne date
+                            Date date = c.getCalendar().getTime(); 
+                            // Recuperation de la Date sous le bon format
+                            //Affichage :
+                            //Le pays pour avoir la bonne date
+                            Locale l = Locale.getDefault();
                             DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL, l);
                             DateFormat mediumDateFormat = DateFormat.getDateTimeInstance(DateFormat.MEDIUM,DateFormat.MEDIUM);
                             AffDate.setText(": "+mediumDateFormat.format(date));
