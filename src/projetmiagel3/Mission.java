@@ -140,6 +140,14 @@ public class Mission {
     }
 
     /**
+     * retourne la liste des employe affecter a chaque competence de la mission
+     * @return 
+     */
+    public HashMap<Competence, Employe[]> getMapE() {
+        return mapE;
+    }    
+
+    /**
      * modifie la liste competences et le nombre d'employe necessaire pour celle-ci
      * @param mapC
      */
