@@ -16,8 +16,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDialog;
@@ -30,6 +32,13 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Accueil extends javax.swing.JFrame {
 
+    private HashMap<String, Integer> a;
+    private HashMap<String, Mission> hashMapMission;
+    private HashMap<String, Competence> hashMapCompetence;
+    private HashMap<String, Employe> hashMapEmploye;
+    private Entreprise e;
+    private DefaultTableModel model2;
+    private DefaultTableModel model1;
     private Entreprise ent;
     
     /**
@@ -39,19 +48,154 @@ public class Accueil extends javax.swing.JFrame {
     public Accueil() throws FileNotFoundException {
         initComponents();
         
-        //Mise à jour de la Date au jour actuel
         Date datAjd = new Date();
-        //Changement du format pour avoir la date souhaitee
-        DateFormat mediumDateFormat = DateFormat.getDateTimeInstance(DateFormat.MEDIUM,DateFormat.MEDIUM);
-        //Mise à jour de l'affichage dans le menu 
-        AffDate.setText(": "+mediumDateFormat.format(datAjd));
-        ent = new Entreprise();
+        DateFormat mediumDateFormat = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM);
+        AffDate.setText(": " + mediumDateFormat.format(datAjd));
+        this.e = new Entreprise();
+        this.hashMapMission = initialiserHashMapMission();
+        this.hashMapCompetence = initialiserHashMapCompetence();
+        this.hashMapEmploye = initialiserHashMapEmploye();
+        buttonAfficherMissionCompetence.setVisible(false);
+        this.model2 = (DefaultTableModel) jTableCompetences.getModel();
+        this.model1 = (DefaultTableModel) jTableEmployePropo.getModel();
+        this.initialiserComboBox();
         try {
-            //Changement des etats dans entreprise
-            ent.mAJDate(ent, datAjd);
+            this.e.mAJDate(this.e, datAjd);
         } catch (IOException ex) {
             Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    /**
+     * La fonction permet d'ajouter les noms missions à la comboBox
+     */
+    public void initialiserComboBox() {
+        this.jComboBoxMissions.removeAllItems();
+        for (String m : this.hashMapMission.keySet()) {
+            this.jComboBoxMissions.addItem(this.hashMapMission.get(m).getNom());
+        }
+        jComboBoxMissions.repaint();
+    }
+
+    /**
+     * La fonction permet de récupérér toutes les missions
+     * @return HashMap ayant pour clé : identifiant de la mission et pour valeur, la mission
+     */
+    public HashMap<String, Mission> initialiserHashMapMission() {
+        HashMap<String, Mission> map = new HashMap<String, Mission>();
+        for (Mission m : this.e.getListMis()) {
+            map.put(m.getId(), m);
+        }
+        return map;
+    }
+
+    /**
+     * La fonction permet de récupérér toutes les compétences
+     * @return HashMap ayant pour clé : identifiant de la compétence et pour valeur, la compétence
+     */
+    public HashMap<String, Competence> initialiserHashMapCompetence() {
+        HashMap<String, Competence> map = new HashMap<String, Competence>();
+        for (Competence m : this.e.listComp) {
+            map.put(m.getId(), m);
+        }
+        return map;
+    }
+    
+    /**
+     * La fonction permet de récupérér tous les employés
+     * @return HashMap ayant pour clé : identifiant de l'employé et pour valeur, l'employé
+     */
+    public HashMap<String, Employe> initialiserHashMapEmploye() {
+        HashMap<String, Employe> map = new HashMap<String, Employe>();
+        for (Employe em : this.e.listEmp) {
+            map.put(Integer.toString(em.getId()), em);
+        }
+        return map;
+    }
+
+    /**
+     * 
+     * @param nom
+     * @return
+     */
+    public String nomMissionToId(String nom) {
+        String id = "";
+        for (String m : this.hashMapMission.keySet()) {
+            if (nom == this.hashMapMission.get(m).getNom()) {
+                id = m;
+            }
+        }
+        return id;
+
+    }
+
+    private void initialiserTableCompetence(HashMap<Competence, Integer> recupComp) {
+        model2.setRowCount(0);
+        for (Competence c : recupComp.keySet()) {
+            model2.insertRow(0, new Object[]{c.toString(), recupComp.get(c)});
+        }
+    }
+
+    private void initialiserTableEmploye() throws FileNotFoundException, IOException {
+        model1.setRowCount(0);
+        String idDeLaMission = this.nomMissionToId((String) this.jComboBoxMissions.getSelectedItem());
+        HashMap<Employe, Set<Competence>> map = this.employeCompetenceMission(this.e, this.hashMapMission.get(idDeLaMission));
+        for (Employe emp : map.keySet()) {
+            String lesCompetences = " ";
+            for (Competence c : map.get(emp)) {
+                lesCompetences += " " + c.getId() + " ";
+            }
+            model1.insertRow(0, new Object[]{emp.getNom() + " " + emp.getPrenom(), map.get(emp).size(), lesCompetences});
+        }
+    }
+    
+    /**
+     *
+     * @param nomEmp
+     * @param prenomEmp
+     * @return
+     */
+    public Employe employe (String nomEmp, String prenomEmp) {
+        HashMap<String, Employe> hmEmploye = initialiserHashMapEmploye();
+        Employe employe=new Employe();
+        for (String id : hmEmploye.keySet()) {
+            if (hmEmploye.get(id).getNom().equals(nomEmp) && hmEmploye.get(id).getPrenom().equals(prenomEmp))
+                employe = hmEmploye.get(id);
+        }
+        return employe;
+    } 
+
+    /**
+     *
+     * @param e
+     * @param m
+     * @return
+     */
+    public HashMap <Employe,Set<Competence>> employeCompetenceMission (Entreprise e, Mission m) {
+        HashMap <Employe,Set<Competence>> employeCompetenceMission = new HashMap <Employe,Set<Competence>>();
+        ArrayList<Employe> listEmp = e.listEmp;
+        ArrayList <String> listComp = new ArrayList <String>();
+        
+        for (Employe empl : listEmp) {
+        listComp = empl.getListeComp();
+            for (String idcompemp : listComp) {
+                for (Competence c : m.mapC.keySet()) {
+                    if (c.getId().equals(idcompemp)) {
+                        if(!employeCompetenceMission.containsKey(empl)) {
+                            Set <Competence> setcompetence = new HashSet<Competence>();
+                            setcompetence.add(c);
+                            employeCompetenceMission.put(empl, setcompetence);
+                        }
+                        else {
+                            Set <Competence> scomp = employeCompetenceMission.get(empl);
+                            scomp.add(c);
+                            employeCompetenceMission.put(empl, scomp);
+                        }
+                    }
+                }
+            }
+        }
+        return employeCompetenceMission;
     }
 
     /**
@@ -129,6 +273,14 @@ public class Accueil extends javax.swing.JFrame {
         TitrePrincipal = new javax.swing.JLabel();
         PanelAffecterEmploye = new javax.swing.JPanel();
         RetourPAffectation = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jComboBoxMissions = new javax.swing.JComboBox<>();
+        buttonAfficherMissionCompetence = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTableCompetences = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jTableEmployePropo = new javax.swing.JTable();
 
         jLabel3.setText("jLabel3");
 
@@ -745,13 +897,87 @@ public class Accueil extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("Choisir une mission");
+
+        jComboBoxMissions.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxMissionsActionPerformed(evt);
+            }
+        });
+
+        buttonAfficherMissionCompetence.setText("Afficher");
+        buttonAfficherMissionCompetence.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buttonAfficherMissionCompetenceMouseClicked(evt);
+            }
+        });
+        buttonAfficherMissionCompetence.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAfficherMissionCompetenceActionPerformed(evt);
+            }
+        });
+
+        jTableCompetences.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Compétence", "Nombre de personnes"
+            }
+        ));
+        jScrollPane4.setViewportView(jTableCompetences);
+
+        jLabel2.setText("Sélectionner un employé pour l'ajouter à votre mission");
+
+        jTableEmployePropo.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Employé", "Nombre de compétences mission", "Compétences"
+            }
+        ));
+        jTableEmployePropo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableEmployePropoMouseClicked(evt);
+            }
+        });
+        jScrollPane5.setViewportView(jTableEmployePropo);
+
         javax.swing.GroupLayout PanelAffecterEmployeLayout = new javax.swing.GroupLayout(PanelAffecterEmploye);
         PanelAffecterEmploye.setLayout(PanelAffecterEmployeLayout);
         PanelAffecterEmployeLayout.setHorizontalGroup(
             PanelAffecterEmployeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelAffecterEmployeLayout.createSequentialGroup()
-                .addContainerGap(966, Short.MAX_VALUE)
-                .addComponent(RetourPAffectation)
+            .addGroup(PanelAffecterEmployeLayout.createSequentialGroup()
+                .addGroup(PanelAffecterEmployeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelAffecterEmployeLayout.createSequentialGroup()
+                        .addContainerGap(976, Short.MAX_VALUE)
+                        .addComponent(RetourPAffectation))
+                    .addGroup(PanelAffecterEmployeLayout.createSequentialGroup()
+                        .addGroup(PanelAffecterEmployeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(PanelAffecterEmployeLayout.createSequentialGroup()
+                                .addGap(39, 39, 39)
+                                .addComponent(jLabel1)
+                                .addGap(77, 77, 77)
+                                .addComponent(jComboBoxMissions, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(130, 130, 130)
+                                .addComponent(buttonAfficherMissionCompetence))
+                            .addGroup(PanelAffecterEmployeLayout.createSequentialGroup()
+                                .addGap(72, 72, 72)
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 839, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(PanelAffecterEmployeLayout.createSequentialGroup()
+                                .addGap(311, 311, 311)
+                                .addComponent(jLabel2))
+                            .addGroup(PanelAffecterEmployeLayout.createSequentialGroup()
+                                .addGap(72, 72, 72)
+                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 842, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         PanelAffecterEmployeLayout.setVerticalGroup(
@@ -759,7 +985,19 @@ public class Accueil extends javax.swing.JFrame {
             .addGroup(PanelAffecterEmployeLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(RetourPAffectation)
-                .addContainerGap(683, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(PanelAffecterEmployeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addGroup(PanelAffecterEmployeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jComboBoxMissions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(buttonAfficherMissionCompetence)))
+                .addGap(51, 51, 51)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(60, 60, 60)
+                .addComponent(jLabel2)
+                .addGap(68, 68, 68)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(226, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout PanelPrincipalLayout = new javax.swing.GroupLayout(PanelPrincipal);
@@ -779,7 +1017,7 @@ public class Accueil extends javax.swing.JFrame {
                     .addComponent(PanelCreerMission, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addContainerGap()))
             .addGroup(PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(PanelFaireFormation, javax.swing.GroupLayout.DEFAULT_SIZE, 1061, Short.MAX_VALUE))
+                .addComponent(PanelFaireFormation, javax.swing.GroupLayout.DEFAULT_SIZE, 1083, Short.MAX_VALUE))
             .addGroup(PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(PanelPrincipalLayout.createSequentialGroup()
                     .addContainerGap()
@@ -1065,11 +1303,14 @@ public class Accueil extends javax.swing.JFrame {
             PanelAccueil.setVisible(true);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
+        }catch (IOException ex) {
             Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
             Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
-        } /*catch(Exception e){
+        }
+        /*catch(Exception e){
+        System.out.println(e);
+        }*/  /*catch(Exception e){
             System.out.println(e);
         }*/
     }//GEN-LAST:event_EnrMissionMouseClicked
@@ -1106,13 +1347,13 @@ public class Accueil extends javax.swing.JFrame {
         // TODO add your handling code here:
         SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH);
         if(evt.getPropertyName().equals("date") && evt.getOldValue()==null && evt.getNewValue()!=null){
-            try {
-                ArrayList<Employe> listTmpEmp = ent.getListEmp();
-                ArrayList<Mission> listTmpMis = ent.getListMis();
-                ArrayList<Formation> listTmpForm = ent.getListForm();
-                for (Mission m : listTmpMis){
-                    Date dateFinMis = m.getDateD();
-                    dateFinMis.setTime(m.getDateD().getTime() + (m.getDuree()*86400000));
+            ArrayList<Employe> listTmpEmp = ent.getListEmp();
+            ArrayList<Mission> listTmpMis = ent.getListMis();
+            ArrayList<Formation> listTmpForm = ent.getListForm();
+            for (Mission m : listTmpMis){
+                Date dateFinMis = m.getDateD();
+                dateFinMis.setTime(m.getDateD().getTime() + (m.getDuree()*86400000));
+                try {
                     if(sdf.parse(JDDateForm.getDate().toString()).compareTo(m.getDateD()) < 0 && sdf.parse(JDDateForm.getDate().toString()).compareTo(dateFinMis) > 0){
                         for(Employe e : m.getEmpMission()){
                             if(listTmpEmp.contains(e)){
@@ -1120,30 +1361,30 @@ public class Accueil extends javax.swing.JFrame {
                             }
                         }
                     }
+                } catch (ParseException ex) {
+                    Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
-                for (Formation f : listTmpForm){
-                    Date dateFinForm = new Date(f.getDateD().getTime());
-                    dateFinForm.setTime(f.getDateD().getTime() + (f.getDuree()*86400000));
+            }
+            for (Formation f : listTmpForm){
+                Date dateFinForm = new Date(f.getDateD().getTime());
+                dateFinForm.setTime(f.getDateD().getTime() + (f.getDuree()*86400000));
+                try {
                     if(sdf.parse(JDDateForm.getDate().toString()).compareTo(f.getDateD()) > 0 && sdf.parse(JDDateForm.getDate().toString()).compareTo(dateFinForm) < 0){
                         if(listTmpEmp.contains(f.getEmp())){
                             listTmpEmp.remove(f.getEmp());
                         }
                     }
+                } catch (ParseException ex) {
+                    Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
-                for(Employe e : listTmpEmp){
-                    CBEmpDispo.addItem(e.getId() + " " + e.getNom() + " " + e.getPrenom());
-                }
-                
-                for(Competence c : ent.getListComp()){
-                    CBCompAcq.addItem(c.getId() + " " + c.getLibFr());
-                }
-                
-                SPanelFaireFormation.setVisible(true);
-            } catch (ParseException ex) {
-                Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
             }
+            for(Employe e : listTmpEmp){
+                CBEmpDispo.addItem(e.getId() + " " + e.getNom() + " " + e.getPrenom());
+            }
+            for(Competence c : ent.getListComp()){
+                CBCompAcq.addItem(c.getId() + " " + c.getLibFr());
+            }
+            SPanelFaireFormation.setVisible(true);
         }
     }//GEN-LAST:event_JDDateFormPropertyChange
 
@@ -1270,6 +1511,7 @@ public class Accueil extends javax.swing.JFrame {
         // TODO add your handling code here:
         PanelAccueil.setVisible(false);
         PanelAffecterEmploye.setVisible(true);
+        buttonAfficherMissionCompetence.setVisible(true);
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void RetourPAffectationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RetourPAffectationMouseClicked
@@ -1309,6 +1551,58 @@ public class Accueil extends javax.swing.JFrame {
         }       
     }//GEN-LAST:event_CBIdMissionItemStateChanged
 
+    private void buttonAfficherMissionCompetenceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonAfficherMissionCompetenceMouseClicked
+        String nomMission;
+        nomMission = (String) jComboBoxMissions.getSelectedItem();
+        String id = this.nomMissionToId(nomMission);
+
+        try {
+            Mission mis = this.hashMapMission.get(id);
+            HashMap <Competence,Integer> compMis = mis.mapC;
+            this.initialiserTableCompetence(compMis);
+            HashMap <Employe,Set<Competence>> map = this.employeCompetenceMission(e, mis);
+            this.initialiserTableEmploye();
+
+        } catch (IOException ex) {
+            Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_buttonAfficherMissionCompetenceMouseClicked
+
+    private void buttonAfficherMissionCompetenceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAfficherMissionCompetenceActionPerformed
+
+    }//GEN-LAST:event_buttonAfficherMissionCompetenceActionPerformed
+
+    private void jComboBoxMissionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxMissionsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxMissionsActionPerformed
+
+    private void jTableEmployePropoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableEmployePropoMouseClicked
+        String InfoEmploye = jTableEmployePropo.getValueAt(jTableEmployePropo.getSelectedRow(), 0).toString();
+        String [] tabInfoEmp = InfoEmploye.split(" ");
+        String nomEmp = tabInfoEmp[0];
+        String prenomEmp = tabInfoEmp[1];
+        Employe emp= employe(nomEmp,prenomEmp);
+
+        String nomMission = (String) jComboBoxMissions.getSelectedItem();
+        String id = this.nomMissionToId(nomMission);
+        Mission mis = this.hashMapMission.get(id);
+
+        String compEmploye = jTableEmployePropo.getValueAt(jTableEmployePropo.getSelectedRow(), 2).toString();
+        HashMap <Employe,Set<Competence>> emComMis = employeCompetenceMission (this.e, mis);
+        Set<Competence> compRech = emComMis.get(emp);
+        Employe [] tabEmp = new Employe[100];
+
+        for (Competence c : compRech) {
+            tabEmp[tabEmp.length-1]=emp;
+
+            mis.mapE.put(c, tabEmp);
+        }
+    }//GEN-LAST:event_jTableEmployePropoMouseClicked
+
+    /**
+     *
+     * @param args
+     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -1406,13 +1700,21 @@ public class Accueil extends javax.swing.JFrame {
     private javax.swing.JLabel TSelComp2;
     private javax.swing.JLabel TSelIdMission;
     private javax.swing.JLabel TitrePrincipal;
+    private javax.swing.JButton buttonAfficherMissionCompetence;
     private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox<String> jComboBoxMissions;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTable jTableAffichage;
+    private javax.swing.JTable jTableCompetences;
     private javax.swing.JTable jTableCreerMission;
     private javax.swing.JTable jTableEmployeMission;
+    private javax.swing.JTable jTableEmployePropo;
     // End of variables declaration//GEN-END:variables
 }

@@ -69,7 +69,7 @@ public class Proposition {
     /*
     recupMission recupere les missions du csv
     */     
-    public static Mission recupMission () throws FileNotFoundException {
+    /*public static Mission recupMission () throws FileNotFoundException {
         String line;
         String fichierMission = System.getProperty("user.dir") + "\\src\\projetmiagel3\\liste_missions.csv";
         java.util.Scanner entree = new java.util.Scanner(new FileReader(fichierMission));
