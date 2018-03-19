@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package projetmiagel3;
 
 import java.io.FileNotFoundException;
@@ -10,8 +5,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- *
- * @author VIALA Guillaume
+ * Interface permettant d'instancier les diverses méthodes lié à l'entreprise
+ * L'ensemble des méthodes permet de charger en mémoire une entreprise
+ * Ou de sauvegarder les divers fichiers liés à l'entreprise
+ * 
  */
 public interface IFichier {
     public abstract void chargerEmploye()throws FileNotFoundException;
