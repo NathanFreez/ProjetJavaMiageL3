@@ -20,12 +20,13 @@ import java.util.HashSet;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDialog;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -137,6 +138,7 @@ public class Accueil extends javax.swing.JFrame {
         for (Competence c : recupComp.keySet()) {
             model2.insertRow(0, new Object[]{c.toString(), recupComp.get(c)});
         }
+        
     }
     
     /**
@@ -1579,6 +1581,7 @@ public class Accueil extends javax.swing.JFrame {
         this.initialiserTableCompetence(compMis);
         HashMap <Employe,Set<Competence>> map = this.employeCompetenceMission(ent, mis);
         this.initialiserTableEmploye();
+        jTableEmployePropo.setAutoCreateRowSorter(true);
     }//GEN-LAST:event_buttonAfficherMissionCompetenceMouseClicked
 
     private void buttonAfficherMissionCompetenceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAfficherMissionCompetenceActionPerformed
