@@ -161,5 +161,30 @@ public class Mission {
      */
     public void setType(TypeMission type) {
         this.type = type;
-    }    
+    }  
+    
+    public void ajouterCompetenceEmploye(Competence c, Employe e){
+        boolean trouver = false;
+        Employe[] tabemp;
+        
+        for(Map.Entry<Competence, Employe[]> ce : this.mapE.entrySet()){
+            if(ce.getKey().equals(c)){
+                tabemp = new Employe[ce.getValue().length+1];
+                for (int i=0; i<ce.getValue().length; i++){
+                    tabemp[i] = ce.getValue()[i];
+                }
+                tabemp[tabemp.length-1] = e;
+                this.mapE.put(c, tabemp);
+                trouver = true;
+            }
+        }
+        
+        if(trouver==false){
+            tabemp = new Employe[1];
+            tabemp[0] = e;
+            this.mapE.put(c, tabemp);
+        }
+    }
 }
+
+//for(Map.Entry<Competence, Employe[]> ce : m.getMapE().entrySet()){

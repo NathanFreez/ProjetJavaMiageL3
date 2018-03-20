@@ -47,7 +47,7 @@ public class Accueil extends javax.swing.JFrame {
      */
     public Accueil() throws FileNotFoundException {
         initComponents();
-        
+        this.ent = new Entreprise();
         Date datAjd = new Date();
         DateFormat mediumDateFormat = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM);
         AffDate.setText(": " + mediumDateFormat.format(datAjd));
@@ -1515,7 +1515,12 @@ public class Accueil extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void RetourPAffectationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RetourPAffectationMouseClicked
-        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            ent.sauvegarderEmployeMission(ent.getListMis());
+        } catch (IOException ex) {
+            Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
+        }
         PanelAffecterEmploye.setVisible(false);
         PanelAccueil.setVisible(true);
     }//GEN-LAST:event_RetourPAffectationMouseClicked
@@ -1590,13 +1595,17 @@ public class Accueil extends javax.swing.JFrame {
         String compEmploye = jTableEmployePropo.getValueAt(jTableEmployePropo.getSelectedRow(), 2).toString();
         HashMap <Employe,Set<Competence>> emComMis = employeCompetenceMission (this.e, mis);
         Set<Competence> compRech = emComMis.get(emp);
-        Employe [] tabEmp = new Employe[100];
+        
+        Employe [] tabEmp = new Employe[1];
 
-        for (Competence c : compRech) {
-            tabEmp[tabEmp.length-1]=emp;
-
-            mis.mapE.put(c, tabEmp);
+        for(Mission m : ent.getListMis()){
+            if (m.getId().equals(mis.getId())){
+                for(Competence c : compRech){
+                    m.ajouterCompetenceEmploye(c, emp);
+                }
+            }
         }
+
     }//GEN-LAST:event_jTableEmployePropoMouseClicked
 
     /**

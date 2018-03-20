@@ -34,6 +34,7 @@ public class Entreprise extends ChargerEntrepriseCSV{
         chargerCompetenceEmploye();
         chargerMission();
         chargerCompetenceMission();
+        chargerEmployeMission();
         chargerFormation();
         chargerCompetenceEtEmployeFormation();
     }

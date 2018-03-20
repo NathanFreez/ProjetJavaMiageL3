@@ -143,6 +143,53 @@ public abstract class ChargerEntrepriseCSV implements IFichier{
         }
     }
     
+    public void chargerEmployeMission() throws FileNotFoundException{
+        String line;
+        boolean trouver = false;
+        Employe[] tabemp;
+        String fichierEmploye = System.getProperty("user.dir") + "\\src\\projetmiagel3\\employes_mission.csv";
+        java.util.Scanner entree = new java.util.Scanner(new FileReader(fichierEmploye));
+        try {
+            while ((line = entree.nextLine()) != null){
+                String values[] = line.split(";");
+                for(int i=1; i<values.length; i++){
+                    String infoEmp[] = values[2].split(" ");
+                    for(Mission m : listMis){
+                        if(m.getId().equals(values[0])){
+                            for(Competence c : listComp){
+                                if(c.getId().equals(values[1])){
+                                    for(Employe e : listEmp){
+                                        if(e.getId()==Integer.parseInt(infoEmp[0])){
+                                            for(Map.Entry<Competence, Employe[]> ce : m.getMapE().entrySet()){
+                                                if(ce.getKey().equals(c)){
+                                                tabemp = new Employe[ce.getValue().length+1];
+                                                for (int j=0; j<ce.getValue().length; j++){
+                                                    tabemp[j] = ce.getValue()[j];
+                                                }
+                                                tabemp[tabemp.length-1] = e;
+                                                m.getMapE().put(c, tabemp);
+                                                trouver = true;
+                                                }
+                                            }
+                                            if(trouver==false){
+                                                tabemp = new Employe[1];
+                                                tabemp[0] = e;
+                                                m.getMapE().put(c, tabemp);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        catch (Exception e){
+            System.out.println(e);
+        }
+    }
+    
     public void chargerFormation() throws FileNotFoundException{
         String line;
         SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH);
@@ -244,6 +291,21 @@ public abstract class ChargerEntrepriseCSV implements IFichier{
                 writer.write(";" + ci.getKey().getId() + ":" + ci.getValue());
             }
             writer.write("\n");
+        }
+        writer.close();
+    }
+    
+    public void sauvegarderEmployeMission(ArrayList<Mission> listM) throws IOException{
+        this.listMis = listM;
+        FileWriter writer = new FileWriter(System.getProperty("user.dir") + "\\src\\projetmiagel3\\employes_mission.csv");
+        for (Mission m : listM){
+            for(Map.Entry<Competence, Employe[]> ce: m.getMapE().entrySet()){
+                for(int i=0; i<ce.getValue().length; i++){
+                    writer.write(m.getId());
+                    writer.write(";" + ce.getKey().getId() + ";" + ce.getValue()[i].getId() + " " + ce.getValue()[i].getNom() + " " + ce.getValue()[i].getPrenom());
+                    writer.write("\n");
+                }
+            }
         }
         writer.close();
     }
