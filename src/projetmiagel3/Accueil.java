@@ -114,9 +114,9 @@ public class Accueil extends javax.swing.JFrame {
     }
 
     /**
-     * 
-     * @param nom
-     * @return
+     * La fonction permet de renvoyer l'identifiant de la mission
+     * @param nom représente le nom de la mission
+     * @return l'identifiant de la mission
      */
     public String nomMissionToId(String nom) {
         String id = "";
@@ -129,14 +129,21 @@ public class Accueil extends javax.swing.JFrame {
 
     }
 
+    /**
+     * La fonction permet d'afficher les compétences nécessaires à l'entreprise avec le nombre de personnes
+     * @param recupComp est une HashMap ayant pour clé une compétence de la mission et pour valeur le nombre de personnes, maitrisant cette compétence, necessaire à la mission
+     */
     private void initialiserTableCompetence(HashMap<Competence, Integer> recupComp) {
         model2.setRowCount(0);
         for (Competence c : recupComp.keySet()) {
             model2.insertRow(0, new Object[]{c.toString(), recupComp.get(c)});
         }
     }
-
-    private void initialiserTableEmploye() throws FileNotFoundException, IOException {
+    
+    /**
+     * Permet d'afficher dans la table, les employés qui correspondent à la mission sélectionnée
+     */
+    private void initialiserTableEmploye() {
         model1.setRowCount(0);
         String idDeLaMission = this.nomMissionToId((String) this.jComboBoxMissions.getSelectedItem());
         HashMap<Employe, Set<Competence>> map = this.employeCompetenceMission(this.e, this.hashMapMission.get(idDeLaMission));
@@ -150,10 +157,10 @@ public class Accueil extends javax.swing.JFrame {
     }
     
     /**
-     *
-     * @param nomEmp
-     * @param prenomEmp
-     * @return
+     * La fonction permet de renvoyer l'employé selon deux paramtres
+     * @param nomEmp est le nom de l'employe
+     * @param prenomEmp est le prenom de l'employe
+     * @return l'employe
      */
     public Employe employe (String nomEmp, String prenomEmp) {
         HashMap<String, Employe> hmEmploye = initialiserHashMapEmploye();
@@ -166,10 +173,10 @@ public class Accueil extends javax.swing.JFrame {
     } 
 
     /**
-     *
-     * @param e
-     * @param m
-     * @return
+     * La fonction retourne une collection ayant pour clé Employé et pour valeur l'ensemble des compétences mission qu'il maîtrise
+     * @param e est l'entreprise dans laquelle l'employé travaille
+     * @param m est la mission que nous avons choisi
+     * @return HashMap ayant pour clé Employé et pour valeur une set de compétences
      */
     public HashMap <Employe,Set<Competence>> employeCompetenceMission (Entreprise e, Mission m) {
         HashMap <Employe,Set<Competence>> employeCompetenceMission = new HashMap <Employe,Set<Competence>>();
@@ -1561,16 +1568,11 @@ public class Accueil extends javax.swing.JFrame {
         nomMission = (String) jComboBoxMissions.getSelectedItem();
         String id = this.nomMissionToId(nomMission);
 
-        try {
-            Mission mis = this.hashMapMission.get(id);
-            HashMap <Competence,Integer> compMis = mis.mapC;
-            this.initialiserTableCompetence(compMis);
-            HashMap <Employe,Set<Competence>> map = this.employeCompetenceMission(e, mis);
-            this.initialiserTableEmploye();
-
-        } catch (IOException ex) {
-            Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        Mission mis = this.hashMapMission.get(id);
+        HashMap <Competence,Integer> compMis = mis.mapC;
+        this.initialiserTableCompetence(compMis);
+        HashMap <Employe,Set<Competence>> map = this.employeCompetenceMission(e, mis);
+        this.initialiserTableEmploye();
     }//GEN-LAST:event_buttonAfficherMissionCompetenceMouseClicked
 
     private void buttonAfficherMissionCompetenceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAfficherMissionCompetenceActionPerformed
