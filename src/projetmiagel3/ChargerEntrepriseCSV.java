@@ -145,37 +145,36 @@ public abstract class ChargerEntrepriseCSV implements IFichier{
     
     public void chargerEmployeMission() throws FileNotFoundException{
         String line;
-        boolean trouver = false;
+        boolean trouver;
         Employe[] tabemp;
         String fichierEmploye = System.getProperty("user.dir") + "\\src\\projetmiagel3\\employes_mission.csv";
         java.util.Scanner entree = new java.util.Scanner(new FileReader(fichierEmploye));
         try {
             while ((line = entree.nextLine()) != null){
+                trouver = false;
                 String values[] = line.split(";");
-                for(int i=1; i<values.length; i++){
-                    String infoEmp[] = values[2].split(" ");
-                    for(Mission m : listMis){
-                        if(m.getId().equals(values[0])){
-                            for(Competence c : listComp){
-                                if(c.getId().equals(values[1])){
-                                    for(Employe e : listEmp){
-                                        if(e.getId()==Integer.parseInt(infoEmp[0])){
-                                            for(Map.Entry<Competence, Employe[]> ce : m.getMapE().entrySet()){
-                                                if(ce.getKey().equals(c)){
-                                                tabemp = new Employe[ce.getValue().length+1];
-                                                for (int j=0; j<ce.getValue().length; j++){
-                                                    tabemp[j] = ce.getValue()[j];
-                                                }
-                                                tabemp[tabemp.length-1] = e;
-                                                m.getMapE().put(c, tabemp);
-                                                trouver = true;
-                                                }
+                String infoEmp[] = values[2].split(" ");
+                for(Mission m : listMis){
+                    if(m.getId().equals(values[0])){
+                        for(Competence c : listComp){
+                            if(c.getId().equals(values[1])){
+                                for(Employe e : listEmp){
+                                    if(e.getId()==Integer.parseInt(infoEmp[0])){
+                                        for(Map.Entry<Competence, Employe[]> ce : m.getMapE().entrySet()){
+                                            if(ce.getKey().equals(c)){
+                                            tabemp = new Employe[ce.getValue().length+1];
+                                            for (int j=0; j<ce.getValue().length; j++){
+                                                tabemp[j] = ce.getValue()[j];
                                             }
-                                            if(trouver==false){
-                                                tabemp = new Employe[1];
-                                                tabemp[0] = e;
-                                                m.getMapE().put(c, tabemp);
+                                            tabemp[tabemp.length-1] = e;
+                                            m.getMapE().put(c, tabemp);
+                                            trouver = true;
                                             }
+                                        }
+                                        if(trouver==false){
+                                            tabemp = new Employe[1];
+                                            tabemp[0] = e;
+                                            m.getMapE().put(c, tabemp);
                                         }
                                     }
                                 }
@@ -184,6 +183,7 @@ public abstract class ChargerEntrepriseCSV implements IFichier{
                     }
                 }
             }
+            System.out.println("cc");
         }
         catch (Exception e){
             System.out.println(e);

@@ -20,6 +20,7 @@ import java.util.HashSet;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDialog;
@@ -36,7 +37,6 @@ public class Accueil extends javax.swing.JFrame {
     private HashMap<String, Mission> hashMapMission;
     private HashMap<String, Competence> hashMapCompetence;
     private HashMap<String, Employe> hashMapEmploye;
-    private Entreprise e;
     private DefaultTableModel model2;
     private DefaultTableModel model1;
     private Entreprise ent;
@@ -51,7 +51,6 @@ public class Accueil extends javax.swing.JFrame {
         Date datAjd = new Date();
         DateFormat mediumDateFormat = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM);
         AffDate.setText(": " + mediumDateFormat.format(datAjd));
-        this.e = new Entreprise();
         this.hashMapMission = initialiserHashMapMission();
         this.hashMapCompetence = initialiserHashMapCompetence();
         this.hashMapEmploye = initialiserHashMapEmploye();
@@ -60,7 +59,7 @@ public class Accueil extends javax.swing.JFrame {
         this.model1 = (DefaultTableModel) jTableEmployePropo.getModel();
         this.initialiserComboBox();
         try {
-            this.e.mAJDate(this.e, datAjd);
+            this.ent.mAJDate(this.ent, datAjd);
         } catch (IOException ex) {
             Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -83,7 +82,7 @@ public class Accueil extends javax.swing.JFrame {
      */
     public HashMap<String, Mission> initialiserHashMapMission() {
         HashMap<String, Mission> map = new HashMap<String, Mission>();
-        for (Mission m : this.e.getListMis()) {
+        for (Mission m : this.ent.getListMis()) {
             map.put(m.getId(), m);
         }
         return map;
@@ -95,7 +94,7 @@ public class Accueil extends javax.swing.JFrame {
      */
     public HashMap<String, Competence> initialiserHashMapCompetence() {
         HashMap<String, Competence> map = new HashMap<String, Competence>();
-        for (Competence m : this.e.listComp) {
+        for (Competence m : this.ent.listComp) {
             map.put(m.getId(), m);
         }
         return map;
@@ -107,7 +106,7 @@ public class Accueil extends javax.swing.JFrame {
      */
     public HashMap<String, Employe> initialiserHashMapEmploye() {
         HashMap<String, Employe> map = new HashMap<String, Employe>();
-        for (Employe em : this.e.listEmp) {
+        for (Employe em : this.ent.listEmp) {
             map.put(Integer.toString(em.getId()), em);
         }
         return map;
@@ -146,7 +145,7 @@ public class Accueil extends javax.swing.JFrame {
     private void initialiserTableEmploye() {
         model1.setRowCount(0);
         String idDeLaMission = this.nomMissionToId((String) this.jComboBoxMissions.getSelectedItem());
-        HashMap<Employe, Set<Competence>> map = this.employeCompetenceMission(this.e, this.hashMapMission.get(idDeLaMission));
+        HashMap<Employe, Set<Competence>> map = this.employeCompetenceMission(this.ent, this.hashMapMission.get(idDeLaMission));
         for (Employe emp : map.keySet()) {
             String lesCompetences = " ";
             for (Competence c : map.get(emp)) {
@@ -180,7 +179,7 @@ public class Accueil extends javax.swing.JFrame {
      */
     public HashMap <Employe,Set<Competence>> employeCompetenceMission (Entreprise e, Mission m) {
         HashMap <Employe,Set<Competence>> employeCompetenceMission = new HashMap <Employe,Set<Competence>>();
-        ArrayList<Employe> listEmp = e.listEmp;
+        ArrayList<Employe> listEmp = ent.listEmp;
         ArrayList <String> listComp = new ArrayList <String>();
         
         for (Employe empl : listEmp) {
@@ -418,11 +417,15 @@ public class Accueil extends javax.swing.JFrame {
             .addComponent(TAffMission, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(TAffComp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(PanelAccueilLayout.createSequentialGroup()
-                .addGap(387, 387, 387)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(PanelAccueilLayout.createSequentialGroup()
                 .addGroup(PanelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelAccueilLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(PanelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(TFormation, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(TAffForm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(TCreerMission, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(TAffDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(TFormation1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(PanelAccueilLayout.createSequentialGroup()
                         .addGroup(PanelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(PanelAccueilLayout.createSequentialGroup()
@@ -444,20 +447,16 @@ public class Accueil extends javax.swing.JFrame {
                                 .addGap(397, 397, 397)
                                 .addComponent(FaireFormation, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(PanelAccueilLayout.createSequentialGroup()
-                                .addGap(491, 491, 491)
-                                .addComponent(ModifDate)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(AffDate, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 345, Short.MAX_VALUE))
-                    .addGroup(PanelAccueilLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(PanelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(TFormation, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(TAffForm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(TCreerMission, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(TAffDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(TFormation1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addGap(385, 385, 385)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(PanelAccueilLayout.createSequentialGroup()
+                .addGap(489, 489, 489)
+                .addComponent(ModifDate)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(AffDate, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(357, Short.MAX_VALUE))
         );
         PanelAccueilLayout.setVerticalGroup(
             PanelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -486,17 +485,17 @@ public class Accueil extends javax.swing.JFrame {
                 .addComponent(TFormation1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(FaireFormation)
-                .addGap(41, 41, 41)
+                .addGap(46, 46, 46)
+                .addComponent(TFormation)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addComponent(TAffDate)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(PanelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ModifDate)
                     .addComponent(AffDate))
-                .addGap(31, 31, 31)
-                .addComponent(TFormation)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
-                .addContainerGap(100, Short.MAX_VALUE))
+                .addGap(97, 97, 97))
         );
 
         PanelFaireFormation.setVisible(false);
@@ -1148,6 +1147,7 @@ public class Accueil extends javax.swing.JFrame {
     private void AffMissionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AffMissionMouseClicked
         // TODO add your handling code here:               
         int i = 0;
+        CBIdMission.removeAllItems();
 
         jTableAffichage.setModel(new javax.swing.table.DefaultTableModel(
             new Object [ent.getListMis().size()][7],
@@ -1168,6 +1168,7 @@ public class Accueil extends javax.swing.JFrame {
                 mapC += "{" + ci.getKey().getId() + "} : " + ci.getValue() + ", ";
             }
             jTableAffichage.setValueAt(mapC, i, 6);
+            i++;
         }
         
         for(Mission m : ent.listMis){
@@ -1306,6 +1307,10 @@ public class Accueil extends javax.swing.JFrame {
             nouvMission.setMapC(mapC);
             ent.ajouterMission(nouvMission);
             
+            this.hashMapMission = initialiserHashMapMission();
+            this.hashMapCompetence = initialiserHashMapCompetence();
+            this.hashMapEmploye = initialiserHashMapEmploye();
+            this.initialiserComboBox();
             PanelCreerMission.setVisible(false);
             PanelAccueil.setVisible(true);
         } catch (FileNotFoundException ex) {
@@ -1464,6 +1469,7 @@ public class Accueil extends javax.swing.JFrame {
             jTableAffichage.setValueAt(f.getDuree(), i, 4);
             jTableAffichage.setValueAt(f.getEmp().getId() + " " + f.getEmp().getNom() + " " + f.getEmp().getPrenom(), i, 5);
             jTableAffichage.setValueAt(f.getComp().getId(), i, 6);
+            i++;
         }
 
         PanelAccueil.setVisible(false);
@@ -1571,7 +1577,7 @@ public class Accueil extends javax.swing.JFrame {
         Mission mis = this.hashMapMission.get(id);
         HashMap <Competence,Integer> compMis = mis.mapC;
         this.initialiserTableCompetence(compMis);
-        HashMap <Employe,Set<Competence>> map = this.employeCompetenceMission(e, mis);
+        HashMap <Employe,Set<Competence>> map = this.employeCompetenceMission(ent, mis);
         this.initialiserTableEmploye();
     }//GEN-LAST:event_buttonAfficherMissionCompetenceMouseClicked
 
@@ -1595,7 +1601,7 @@ public class Accueil extends javax.swing.JFrame {
         Mission mis = this.hashMapMission.get(id);
 
         String compEmploye = jTableEmployePropo.getValueAt(jTableEmployePropo.getSelectedRow(), 2).toString();
-        HashMap <Employe,Set<Competence>> emComMis = employeCompetenceMission (this.e, mis);
+        HashMap <Employe,Set<Competence>> emComMis = employeCompetenceMission (this.ent, mis);
         Set<Competence> compRech = emComMis.get(emp);
         
         Employe [] tabEmp = new Employe[1];

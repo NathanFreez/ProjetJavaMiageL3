@@ -16,8 +16,18 @@ public interface IFichier {
     public abstract void chargerCompetenceEmploye()throws FileNotFoundException;
     public abstract void chargerMission() throws FileNotFoundException;
     public abstract void chargerCompetenceMission() throws FileNotFoundException;
+    public abstract void chargerEmployeMission() throws FileNotFoundException;
+    public abstract void chargerFormation() throws FileNotFoundException;
+    public abstract void chargerCompetenceEtEmployeFormation() throws FileNotFoundException;
+        
+    
     public abstract void sauvegarderEmploye(ArrayList<Employe> listE) throws IOException;
     public abstract void sauvegarderCompetence(ArrayList<Competence> listC) throws IOException;
     public abstract void sauvegarderMission(ArrayList<Mission> listM) throws IOException;
     public abstract void sauvegardeCompetenceMission(ArrayList<Mission> listM) throws IOException;
+    public abstract void sauvegarderEmployeMission(ArrayList<Mission> listM)throws IOException;
+    public abstract void sauvegarderFormation(ArrayList<Formation> listF)throws IOException;
+    public abstract void sauvegardeCompetenceFormation(ArrayList<Formation> listF)throws IOException;
+    public abstract void sauvegardeEmployeFormation(ArrayList<Formation> listF)throws IOException;
+    public abstract void sauvegardeListeComp(int id, String compAdd)throws IOException;
 }
